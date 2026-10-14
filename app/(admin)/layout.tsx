@@ -3,6 +3,7 @@ import Link from "next/link";
 const NAV = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/users", label: "Users" },
+  { href: "/partners", label: "Partners" },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

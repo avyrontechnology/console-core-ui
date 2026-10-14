@@ -3,10 +3,23 @@ import { render, screen } from "@testing-library/react";
 import RootLayout from "@/app/layout";
 import Home from "@/app/page";
 import StoreProvider from "@/app/StoreProvider";
+import AdminLayout from "@/app/(admin)/layout";
+import DashboardPage from "@/app/(admin)/dashboard/page";
+import LoginPage from "@/app/login/page";
 
 jest.mock("next-auth/react", () => ({
   SessionProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
   useSession: () => ({ data: null, status: "unauthenticated" }),
+  signIn: jest.fn(),
+}));
+
+jest.mock("@/components/ProtectedRoute", () => ({
+  __esModule: true,
+  default: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+}));
+
+jest.mock("next/navigation", () => ({
+  useRouter: () => ({ push: jest.fn() }),
 }));
 
 describe("app shell", () => {
@@ -31,5 +44,25 @@ describe("app shell", () => {
       </StoreProvider>,
     );
     expect(screen.getByText("inside")).toBeInTheDocument();
+  });
+
+  it("login page renders form", () => {
+    render(<LoginPage />);
+    expect(screen.getByRole("button", { name: /sign in/i })).toBeInTheDocument();
+  });
+
+  it("admin layout renders nav and content", () => {
+    render(
+      <AdminLayout>
+        <p>section</p>
+      </AdminLayout>,
+    );
+    expect(screen.getByText("Users")).toBeInTheDocument();
+    expect(screen.getByText("section")).toBeInTheDocument();
+  });
+
+  it("dashboard renders heading", () => {
+    render(<DashboardPage />);
+    expect(screen.getByText("Dashboard")).toBeInTheDocument();
   });
 });

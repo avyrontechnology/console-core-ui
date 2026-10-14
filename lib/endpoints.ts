@@ -23,4 +23,10 @@ export const ENDPOINTS = {
   USER_UPDATE: (id: string) => url(`/user/${id}`),
   USER_DELETE: (id: string) => url(`/user/${id}`),
   ROLES: () => url("/role"),
+  PARTNERS: () => url("/partners"),
+  PARTNER_BY_ID: (id: string) => url(`/partner/${id}`),
+  PARTNER_CREATE: () => url("/create_partner"),
+  PARTNER_UPDATE: (id: string) => url(`/partner/${id}`),
+  PARTNER_DELETE: (id: string) => url(`/partner/${id}`),
+  PARTNER_TOGGLE_ACTIVATION: (id: string) => url(`/partner/${id}/toggle_activation`),
 } as const;
