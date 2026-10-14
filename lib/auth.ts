@@ -3,9 +3,9 @@ import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
 
 import { ApiClient } from "./api-client";
-import { ENDPOINTS } from "./endpoints";
+import { authorizeWithConsole } from "./console-auth";
 import { logger } from "./logger";
-import type { HomepageData, TokenPair } from "@/types/api";
+import type { HomepageData } from "@/types/api";
 
 const credentialsSchema = z.object({
   email: z.string().min(1),
@@ -13,20 +13,8 @@ const credentialsSchema = z.object({
 });
 
 /** Backend login + hydrate. Single place that touches credentials. */
-async function authorizeWithConsole(
-  email: string,
-  password: string,
-): Promise<HomepageData & { accessToken: string }> {
-  const client = new ApiClient();
-  const token = await client.post<TokenPair>(ENDPOINTS.LOGIN(), {
-    credential: email,
-    password,
-  });
-  const authed = new ApiClient({
-    getToken: () => token.access_token,
-  });
-  const homepage = await authed.get<HomepageData>(ENDPOINTS.HOMEPAGE_DETAILS());
-  return { ...homepage, accessToken: token.access_token };
+async function authorizeWithBackend(email: string, password: string) {
+  return authorizeWithConsole(new ApiClient(), email, password);
 }
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -42,7 +30,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const parsed = credentialsSchema.safeParse(credentials);
         if (!parsed.success) return null;
         try {
-          const data = await authorizeWithConsole(parsed.data.email, parsed.data.password);
+          const data = await authorizeWithBackend(parsed.data.email, parsed.data.password);
           return {
             id: data.user_info.id,
             email: data.user_info.email,

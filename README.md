@@ -21,7 +21,7 @@ npm run dev                  # http://localhost:3000
 | `npm run typecheck`               | `tsc --noEmit` (strict, noUnusedLocals)                                |
 | `npm run lint`                    | Next.js ESLint (`no-explicit-any` = error, `no-console` except logger) |
 | `npm run format` / `format:write` | Prettier check / write                                                 |
-| `npm run test` / `test:ci`        | Jest + coverage (85% lines/functions/statements, 60% branches)         |
+| `npm run test` / `test:ci`        | Jest + coverage (85% lines/statements, 80% functions, 60% branches)    |
 
 Pre-commit hook (Husky + lint-staged): ESLint fix + Prettier on staged files.
 
