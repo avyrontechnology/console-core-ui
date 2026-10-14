@@ -29,4 +29,13 @@ export const ENDPOINTS = {
   PARTNER_UPDATE: (id: string) => url(`/partner/${id}`),
   PARTNER_DELETE: (id: string) => url(`/partner/${id}`),
   PARTNER_TOGGLE_ACTIVATION: (id: string) => url(`/partner/${id}/toggle_activation`),
+  ROLES_LIST: () => url("/role"),
+  ROLE_CREATE: () => url("/role"),
+  ROLE_BY_ID: (id: string) => url(`/role/${id}`),
+  ROLE_UPDATE: (id: string) => url(`/role/${id}`),
+  ROLE_DELETE: (id: string) => url(`/role/${id}`),
+  PERMISSIONS_LIST: () => url("/permission"),
+  PERMISSION_MATRIX: () => url("/get_permissions_for_all_roles"),
+  ROLE_ACTION_PERMISSIONS: (roleId: string) =>
+    url(`/default_role_permission/role/${roleId}/action-permissions`),
 } as const;

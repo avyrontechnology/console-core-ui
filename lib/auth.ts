@@ -5,7 +5,7 @@ import { z } from "zod";
 import { ApiClient } from "./api-client";
 import { authorizeWithConsole } from "./console-auth";
 import { logger } from "./logger";
-import type { HomepageData } from "@/types/api";
+import type { HomepageData, PartnerInfo } from "@/types/api";
 
 const credentialsSchema = z.object({
   email: z.string().min(1),
@@ -54,7 +54,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const u = user as unknown as Record<string, unknown>;
         token.accessToken = u["accessToken"] as string;
         token.permissions = (u["permissions"] as string[]) ?? [];
-        token.partnerInfo = (u["partnerInfo"] as Record<string, unknown>) ?? null;
+        token.partnerInfo = (u["partnerInfo"] as PartnerInfo) ?? null;
         token.servicesInfo = (u["servicesInfo"] as Record<string, unknown>) ?? null;
         token.userInfo = u["userInfo"] as HomepageData["user_info"];
       }
@@ -64,7 +64,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       const t = token as unknown as {
         accessToken?: string;
         permissions?: string[];
-        partnerInfo?: Record<string, unknown> | null;
+        partnerInfo?: PartnerInfo | null;
         servicesInfo?: Record<string, unknown> | null;
         userInfo?: HomepageData["user_info"];
         sub?: string;

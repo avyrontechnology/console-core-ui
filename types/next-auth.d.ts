@@ -1,10 +1,10 @@
-import type { HomepageData } from "@/types/api";
+import type { HomepageData, PartnerInfo } from "@/types/api";
 
 declare module "next-auth" {
   interface Session {
     accessToken: string;
     permissions: string[];
-    partnerInfo: Record<string, unknown> | null;
+    partnerInfo: PartnerInfo | null;
     servicesInfo: Record<string, unknown> | null;
     user: {
       id: string;
@@ -18,7 +18,7 @@ declare module "next-auth/jwt" {
   interface JWT {
     accessToken: string;
     permissions: string[];
-    partnerInfo: Record<string, unknown> | null;
+    partnerInfo: PartnerInfo | null;
     servicesInfo: Record<string, unknown> | null;
     userInfo?: HomepageData["user_info"];
   }

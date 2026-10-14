@@ -27,9 +27,15 @@ export interface UserInfo {
   role_id: string | null;
 }
 
+export interface PartnerInfo {
+  partner_id: string;
+  partner_name?: string | null;
+  subscription_mode?: string | null;
+}
+
 export interface HomepageData {
   user_info: UserInfo;
   user_permissions: string[];
-  partner_info: Record<string, unknown> | null;
+  partner_info: PartnerInfo | null;
   services_info: Record<string, unknown> | null;
 }
