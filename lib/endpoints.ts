@@ -38,4 +38,16 @@ export const ENDPOINTS = {
   PERMISSION_MATRIX: () => url("/get_permissions_for_all_roles"),
   ROLE_ACTION_PERMISSIONS: (roleId: string) =>
     url(`/default_role_permission/role/${roleId}/action-permissions`),
+  PLANS: (params?: { service_name?: string; plan_type?: string }) => {
+    const query = new URLSearchParams();
+    if (params?.service_name) query.set("service_name", params.service_name);
+    if (params?.plan_type) query.set("plan_type", params.plan_type);
+    const suffix = query.toString();
+    return url(`/get-plans${suffix ? `?${suffix}` : ""}`);
+  },
+  PLAN_BY_ID: (id: string) => url(`/get-plan-by-id/${id}`),
+  PLAN_CREATE: () => url("/create-plan"),
+  PLAN_UPDATE: (id: string) => url(`/update-plan/${id}`),
+  PLAN_DELETE: (id: string) => url(`/delete-plan/${id}`),
+  PLAN_MODULES: () => url("/get-modules"),
 } as const;
