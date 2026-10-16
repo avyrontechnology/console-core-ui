@@ -132,4 +132,18 @@ export const ENDPOINTS = {
   API_KEY_ROTATE: () => url("/generate_api_key"),
   API_KEY_UPDATE: () => url("/api_key"),
   API_KEY_INACTIVATE: () => url("/inactivate_api_key"),
+  AUDIT_LOGS: (params?: {
+    resource?: string;
+    action?: string;
+    limit?: number;
+    offset?: number;
+  }) => {
+    const query = new URLSearchParams();
+    if (params?.resource) query.set("resource", params.resource);
+    if (params?.action) query.set("action", params.action);
+    if (params?.limit !== undefined) query.set("limit", String(params.limit));
+    if (params?.offset !== undefined) query.set("offset", String(params.offset));
+    const suffix = query.toString();
+    return url(`/audit-logs${suffix ? `?${suffix}` : ""}`);
+  },
 } as const;
