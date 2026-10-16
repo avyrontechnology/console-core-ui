@@ -11,6 +11,7 @@ export const ENDPOINTS = {
   LOGIN: () => url("/do_login?svc_name=console"),
   LOGOUT: () => url("/logout"),
   HOMEPAGE_DETAILS: () => url("/partner_homepage_details"),
+  DASHBOARD_CARDS: () => url("/partner_dashboard_cards"),
   USERS: (params?: { offset?: number; limit?: number }) => {
     const query = new URLSearchParams();
     if (params?.offset !== undefined) query.set("offset", String(params.offset));
@@ -50,4 +51,81 @@ export const ENDPOINTS = {
   PLAN_UPDATE: (id: string) => url(`/update-plan/${id}`),
   PLAN_DELETE: (id: string) => url(`/delete-plan/${id}`),
   PLAN_MODULES: () => url("/get-modules"),
+  ORDERS_HISTORY: (params?: {
+    partner_ids?: string;
+    limit?: number;
+    offset?: number;
+    source?: string;
+    status?: string;
+    is_manually_created?: boolean;
+    order_type?: string;
+  }) => {
+    const query = new URLSearchParams();
+    if (params?.partner_ids) query.set("partner_ids", params.partner_ids);
+    if (params?.limit !== undefined) query.set("limit", String(params.limit));
+    if (params?.offset !== undefined) query.set("offset", String(params.offset));
+    if (params?.source) query.set("source", params.source);
+    if (params?.status) query.set("status", params.status);
+    if (params?.is_manually_created !== undefined)
+      query.set("is_manually_created", String(params.is_manually_created));
+    if (params?.order_type) query.set("order_type", params.order_type);
+    const suffix = query.toString();
+    return url(`/orders/history${suffix ? `?${suffix}` : ""}`);
+  },
+  ORDERS_MANUAL: () => url("/orders/manual"),
+  ORDERS_BILLING: () => url("/orders/billing-details"),
+  ORDERS_CALCULATE: (params: { amount: number; currency: string }) => {
+    const query = new URLSearchParams();
+    query.set("amount", String(params.amount));
+    query.set("currency", params.currency);
+    return url(`/orders/calculate-amount?${query.toString()}`);
+  },
+  WALLET: (params?: { partner_id?: string }) => {
+    const query = new URLSearchParams();
+    if (params?.partner_id) query.set("partner_id", params.partner_id);
+    const suffix = query.toString();
+    return url(`/wallet${suffix ? `?${suffix}` : ""}`);
+  },
+  WALLET_TRANSACTIONS: (params: {
+    limit: number;
+    offset: number;
+    partner_id?: string;
+    start_date?: number;
+    end_date?: number;
+    service_name?: string;
+    transaction_type?: string;
+  }) => {
+    const query = new URLSearchParams();
+    query.set("limit", String(params.limit));
+    query.set("offset", String(params.offset));
+    if (params.partner_id) query.set("partner_id", params.partner_id);
+    if (params.start_date !== undefined) query.set("start_date", String(params.start_date));
+    if (params.end_date !== undefined) query.set("end_date", String(params.end_date));
+    if (params.service_name) query.set("service_name", params.service_name);
+    if (params.transaction_type) query.set("transaction_type", params.transaction_type);
+    return url(`/wallet/transactions?${query.toString()}`);
+  },
+  ORDERS_INITIATE: () => url("/orders/initiate"),
+  ORDERS_VALIDATE: () => url("/orders/validate"),
+  ENTITLEMENT_UPDATE_START_DATE: () => url("/entitlements/update-start-date"),
+  ENTITLEMENT_DISMISS_POPUP: (serviceName: string) => {
+    const query = new URLSearchParams();
+    query.set("service_name", serviceName);
+    return url(`/entitlements/dismiss-popup?${query.toString()}`);
+  },
+  GRACE_GRANT: () => url("/grace/grant"),
+  GRACE_STATUS: (partnerId: string) => {
+    const query = new URLSearchParams();
+    query.set("partner_id", partnerId);
+    return url(`/grace/status?${query.toString()}`);
+  },
+  PAYMENT_HISTORY: (params: { limit: number; offset: number }) => {
+    const query = new URLSearchParams();
+    query.set("limit", String(params.limit));
+    query.set("offset", String(params.offset));
+    return url(`/payment/history?${query.toString()}`);
+  },
+  PARTNER_META_GET: (partnerId: string) => url(`/partner_meta_data/partner/${partnerId}`),
+  PARTNER_META_CREATE: (partnerId: string) => url(`/partner_meta_data/${partnerId}`),
+  PARTNER_META_UPDATE: (partnerId: string) => url(`/partner_meta_data/${partnerId}`),
 } as const;

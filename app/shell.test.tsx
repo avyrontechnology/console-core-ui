@@ -18,6 +18,11 @@ jest.mock("@/components/ProtectedRoute", () => ({
   default: ({ children }: { children: React.ReactNode }) => <>{children}</>,
 }));
 
+jest.mock("@/features/dashboard/hooks", () => ({
+  useHomepageDetails: () => ({ data: null, isLoading: false, error: null, refresh: jest.fn() }),
+  useDashboardCards: () => ({ data: [], isLoading: false, error: null, refresh: jest.fn() }),
+}));
+
 jest.mock("next/navigation", () => ({
   useRouter: () => ({ push: jest.fn() }),
 }));
@@ -58,6 +63,11 @@ describe("app shell", () => {
       </AdminLayout>,
     );
     expect(screen.getByText("Users")).toBeInTheDocument();
+    expect(screen.getByText("Orders")).toBeInTheDocument();
+    expect(screen.getByText("Wallet")).toBeInTheDocument();
+    expect(screen.getByText("Entitlements")).toBeInTheDocument();
+    expect(screen.getByText("Grace")).toBeInTheDocument();
+    expect(screen.getByText("Payments")).toBeInTheDocument();
     expect(screen.getByText("section")).toBeInTheDocument();
   });
 

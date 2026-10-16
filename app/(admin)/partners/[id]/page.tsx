@@ -13,10 +13,17 @@ import {
   useTogglePartnerActivation,
   useUpdatePartner,
 } from "@/features/partners/hooks";
+import {
+  PartnerMetaForm,
+  PartnerMetaSection,
+} from "@/features/partner-meta/components/PartnerMetaComponents";
+import { usePartnerMeta, useSavePartnerMeta } from "@/features/partner-meta/hooks";
 
 function PartnerDetailContent({ id }: { id: string }) {
   const router = useRouter();
   const { data: partner, isLoading, error } = usePartner(id);
+  const { data: meta, isLoading: metaLoading } = usePartnerMeta(id);
+  const { save: saveMeta, isSaving: isMetaSaving, error: metaError } = useSavePartnerMeta();
   const { update, isSaving, error: saveError } = useUpdatePartner();
   const { remove, isSaving: isDeleting } = useDeletePartner();
   const { toggle, isSaving: isToggling } = useTogglePartnerActivation();
@@ -114,6 +121,21 @@ function PartnerDetailContent({ id }: { id: string }) {
           onClose={() => setConfirmDelete(false)}
         />
       )}
+      <div className="space-y-4 border-t pt-4">
+        <h2 className="font-medium">Partner meta</h2>
+        {metaLoading && <p>Loading meta…</p>}
+        {!metaLoading && <PartnerMetaSection partnerId={partner.id} meta={meta} />}
+        {!metaLoading && (
+          <PartnerMetaForm
+            initial={meta}
+            isSaving={isMetaSaving}
+            serverError={metaError}
+            onSubmit={async (values) => {
+              await saveMeta(partner.id, values, Boolean(meta?.id));
+            }}
+          />
+        )}
+      </div>
     </div>
   );
 }

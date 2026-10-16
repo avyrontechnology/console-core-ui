@@ -12,6 +12,7 @@ import {
   useTogglePartnerActivation,
   useUpdatePartner,
 } from "@/features/partners/hooks";
+import { usePartnerMeta, useSavePartnerMeta } from "@/features/partner-meta/hooks";
 
 jest.mock("@/features/partners/hooks", () => ({
   useCreatePartner: jest.fn(),
@@ -20,6 +21,11 @@ jest.mock("@/features/partners/hooks", () => ({
   usePartners: jest.fn(),
   useTogglePartnerActivation: jest.fn(),
   useUpdatePartner: jest.fn(),
+}));
+
+jest.mock("@/features/partner-meta/hooks", () => ({
+  usePartnerMeta: jest.fn(),
+  useSavePartnerMeta: jest.fn(),
 }));
 
 jest.mock("@/components/ProtectedRoute", () => ({
@@ -85,6 +91,17 @@ describe("partner pages", () => {
     (usePartner as jest.Mock).mockReturnValue({
       data: partner,
       isLoading: false,
+      error: null,
+    });
+    (usePartnerMeta as jest.Mock).mockReturnValue({
+      data: null,
+      isLoading: false,
+      error: null,
+      refresh: jest.fn(),
+    });
+    (useSavePartnerMeta as jest.Mock).mockReturnValue({
+      save: jest.fn(),
+      isSaving: false,
       error: null,
     });
     (useUpdatePartner as jest.Mock).mockReturnValue({
