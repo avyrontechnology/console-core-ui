@@ -128,4 +128,8 @@ export const ENDPOINTS = {
   PARTNER_META_GET: (partnerId: string) => url(`/partner_meta_data/partner/${partnerId}`),
   PARTNER_META_CREATE: (partnerId: string) => url(`/partner_meta_data/${partnerId}`),
   PARTNER_META_UPDATE: (partnerId: string) => url(`/partner_meta_data/${partnerId}`),
+  API_KEY_GET: () => url("/get_api_key"),
+  API_KEY_ROTATE: () => url("/generate_api_key"),
+  API_KEY_UPDATE: () => url("/api_key"),
+  API_KEY_INACTIVATE: () => url("/inactivate_api_key"),
 } as const;
