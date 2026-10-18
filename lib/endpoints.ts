@@ -172,4 +172,16 @@ export const ENDPOINTS = {
     if (params.service_type) query.set("service_type", params.service_type);
     return url(`/notifications/unsubscribe?${query.toString()}`);
   },
+  USER_CONFIGS: (params?: { user_id?: string }) => {
+    const query = new URLSearchParams();
+    if (params?.user_id) query.set("user_id", params.user_id);
+    const suffix = query.toString();
+    return url(`/user-configs${suffix ? `?${suffix}` : ""}`);
+  },
+  USER_CONFIG_BY_KEY: (key: string) => url(`/user-config?key=${encodeURIComponent(key)}`),
+  USER_CONFIG_CREATE: () => url("/user-config"),
+  USER_CONFIG_UPSERT: (partnerId: string, userIds: string[]) => {
+    const query = userIds.map((id) => `user_ids=${encodeURIComponent(id)}`).join("&");
+    return url(`/user-configs/${partnerId}${query ? `?${query}` : ""}`);
+  },
 } as const;

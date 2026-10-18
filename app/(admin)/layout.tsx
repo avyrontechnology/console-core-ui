@@ -15,6 +15,7 @@ const NAV = [
   { href: "/api-keys", label: "API Keys" },
   { href: "/audit-logs", label: "Audit Logs" },
   { href: "/notifications", label: "Notifications" },
+  { href: "/user-configs", label: "User Configs" },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
