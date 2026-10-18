@@ -16,13 +16,13 @@ function DashboardContent() {
     <div className="space-y-6">
       <div>
         <h1 className="text-xl font-semibold">Dashboard</h1>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-slate-500">
           Hello, {userName}
           {partnerName ? ` · ${partnerName}` : ""}
         </p>
       </div>
       {isLoading && <p>Loading…</p>}
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && <p className="text-sm text-critical">{error}</p>}
       {!isLoading && !error && <DashboardCards cards={cards ?? []} />}
     </div>
   );

@@ -71,7 +71,7 @@ export function UserForm({
             </option>
           ))}
         </select>
-        {errors.role_id && <p className="mt-1 text-sm text-red-600">{errors.role_id.message}</p>}
+        {errors.role_id && <p className="mt-1 text-sm text-critical">{errors.role_id.message}</p>}
       </div>
       <TextField
         label="Partner ID"
@@ -83,7 +83,7 @@ export function UserForm({
         error={errors.designation?.message}
         {...register("designation")}
       />
-      {serverError && <p className="text-sm text-red-600">{serverError}</p>}
+      {serverError && <p className="text-sm text-critical">{serverError}</p>}
       <button
         type="submit"
         disabled={isSaving}

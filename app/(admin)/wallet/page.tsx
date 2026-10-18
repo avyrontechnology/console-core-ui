@@ -21,8 +21,8 @@ function WalletContent() {
     <div className="space-y-4">
       <h1 className="text-xl font-semibold">Wallet</h1>
       {isLoading && <p>Loading…</p>}
-      {walletError && <p className="text-sm text-red-600">{walletError}</p>}
-      {txnsError && <p className="text-sm text-red-600">{txnsError}</p>}
+      {walletError && <p className="text-sm text-critical">{walletError}</p>}
+      {txnsError && <p className="text-sm text-critical">{txnsError}</p>}
       {!walletLoading && !walletError && wallet && <WalletOverview wallet={wallet} />}
       {!txnsLoading && !txnsError && (
         <WalletTransactionTable transactions={txns?.transactions ?? []} />

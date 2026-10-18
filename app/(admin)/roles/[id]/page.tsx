@@ -30,7 +30,7 @@ function RoleDetailContent({ id }: { id: string }) {
   const [grants, setGrants] = useState<Record<string, boolean>>({});
 
   if (isLoading) return <p>Loading…</p>;
-  if (error || !role) return <p className="text-sm text-red-600">{error ?? "Role not found"}</p>;
+  if (error || !role) return <p className="text-sm text-critical">{error ?? "Role not found"}</p>;
 
   const partnerId = session?.partnerInfo?.partner_id ?? "";
   const roleMatrix = matrixResponse
@@ -57,24 +57,24 @@ function RoleDetailContent({ id }: { id: string }) {
         <button
           type="button"
           onClick={() => setConfirmDelete(true)}
-          className="rounded border border-red-600 px-4 py-2 text-red-600"
+          className="rounded border border-red-600 px-4 py-2 text-critical"
         >
           Delete
         </button>
       </div>
       <dl className="space-y-1 text-sm">
         <div className="flex gap-2">
-          <dt className="w-28 text-gray-500">Slug</dt>
+          <dt className="w-28 text-slate-500">Slug</dt>
           <dd className="font-mono text-xs">{role.slug}</dd>
         </div>
         <div className="flex gap-2">
-          <dt className="w-28 text-gray-500">Hierarchy</dt>
+          <dt className="w-28 text-slate-500">Hierarchy</dt>
           <dd>{role.hierarchy ?? "—"}</dd>
         </div>
       </dl>
       <h2 className="text-lg font-semibold">Permissions</h2>
       {isMatrixLoading && <p>Loading…</p>}
-      {matrixError && <p className="text-sm text-red-600">{matrixError}</p>}
+      {matrixError && <p className="text-sm text-critical">{matrixError}</p>}
       {!isMatrixLoading && !matrixError && (
         <PermissionMatrix
           matrix={roleMatrix}
@@ -83,9 +83,9 @@ function RoleDetailContent({ id }: { id: string }) {
           disabled={!partnerId || isSaving}
         />
       )}
-      {saveError && <p className="text-sm text-red-600">{saveError}</p>}
+      {saveError && <p className="text-sm text-critical">{saveError}</p>}
       {!partnerId && (
-        <p className="text-sm text-gray-500">Partner context missing — toggles are disabled.</p>
+        <p className="text-sm text-slate-500">Partner context missing — toggles are disabled.</p>
       )}
       <button
         type="button"

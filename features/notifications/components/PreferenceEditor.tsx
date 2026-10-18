@@ -21,7 +21,7 @@ export function PreferenceEditor({
   };
 
   if (preferences.length === 0) {
-    return <p className="text-sm text-gray-500">No preferences configured</p>;
+    return <p className="text-sm text-slate-500">No preferences configured</p>;
   }
 
   return (
@@ -52,7 +52,7 @@ export function PreferenceEditor({
           </li>
         ))}
       </ul>
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && <p className="text-sm text-critical">{error}</p>}
     </div>
   );
 }

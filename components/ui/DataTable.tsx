@@ -17,15 +17,22 @@ export function DataTable<T extends { id: string }>({
   emptyText?: string;
 }) {
   if (rows.length === 0) {
-    return <p className="py-8 text-center text-gray-500">{emptyText}</p>;
+    return (
+      <div className="rounded-lg border border-line bg-surface py-12 text-center text-sm text-slate-500 shadow-card">
+        {emptyText}
+      </div>
+    );
   }
   return (
-    <div className="overflow-x-auto rounded border">
+    <div className="overflow-x-auto rounded-lg border border-line bg-surface shadow-card">
       <table className="w-full text-left text-sm">
         <thead>
-          <tr className="border-b bg-gray-50">
+          <tr className="bg-slate-50">
             {columns.map((col) => (
-              <th key={col.key} className="px-4 py-2 font-medium">
+              <th
+                key={col.key}
+                className="border-b border-line px-4 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500"
+              >
                 {col.header}
               </th>
             ))}
@@ -33,9 +40,12 @@ export function DataTable<T extends { id: string }>({
         </thead>
         <tbody>
           {rows.map((row) => (
-            <tr key={row.id} className="border-b last:border-0 hover:bg-gray-50">
+            <tr
+              key={row.id}
+              className="border-b border-line last:border-0 transition-colors hover:bg-brand-50/40"
+            >
               {columns.map((col) => (
-                <td key={col.key} className="px-4 py-2">
+                <td key={col.key} className="px-4 py-2.5 text-slate-700">
                   {col.render
                     ? col.render(row)
                     : String((row as unknown as Record<string, unknown>)[col.key] ?? "—")}

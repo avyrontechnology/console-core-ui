@@ -29,7 +29,7 @@ describe("NotificationList", () => {
     const u = userEvent.setup();
     render(<NotificationList notifications={[{ ...notification, is_read: true }]} />);
     const title = screen.getByText("Lead assigned");
-    expect(title.className).toContain("text-gray-500");
+    expect(title.className).toContain("text-slate-500");
     await u.click(title);
   });
 });

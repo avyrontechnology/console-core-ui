@@ -33,7 +33,7 @@ function PartnerDetailContent({ id }: { id: string }) {
 
   if (isLoading) return <p>Loading…</p>;
   if (error || !partner)
-    return <p className="text-sm text-red-600">{error ?? "Partner not found"}</p>;
+    return <p className="text-sm text-critical">{error ?? "Partner not found"}</p>;
 
   const save = async () => {
     await update(partner.id, {
@@ -61,15 +61,15 @@ function PartnerDetailContent({ id }: { id: string }) {
       <h1 className="text-xl font-semibold">{partner.name}</h1>
       <dl className="space-y-1 text-sm">
         <div className="flex gap-2">
-          <dt className="w-32 text-gray-500">Legal name</dt>
+          <dt className="w-32 text-slate-500">Legal name</dt>
           <dd>{partner.company_legal_name}</dd>
         </div>
         <div className="flex gap-2">
-          <dt className="w-32 text-gray-500">Status</dt>
+          <dt className="w-32 text-slate-500">Status</dt>
           <dd>{partner.is_active ? "Active" : "Inactive"}</dd>
         </div>
         <div className="flex gap-2">
-          <dt className="w-32 text-gray-500">Licenses</dt>
+          <dt className="w-32 text-slate-500">Licenses</dt>
           <dd>{partner.active_license ?? "—"}</dd>
         </div>
       </dl>
@@ -85,7 +85,7 @@ function PartnerDetailContent({ id }: { id: string }) {
         defaultValue={partner.description ?? ""}
         onChange={(event) => setDescription(event.target.value)}
       />
-      {saveError && <p className="text-sm text-red-600">{saveError}</p>}
+      {saveError && <p className="text-sm text-critical">{saveError}</p>}
       <div className="flex flex-wrap gap-2">
         <button
           type="button"
@@ -106,7 +106,7 @@ function PartnerDetailContent({ id }: { id: string }) {
         <button
           type="button"
           onClick={() => setConfirmDelete(true)}
-          className="rounded border border-red-600 px-4 py-2 text-red-600"
+          className="rounded border border-red-600 px-4 py-2 text-critical"
         >
           Delete
         </button>

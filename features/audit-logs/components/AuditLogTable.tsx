@@ -1,6 +1,20 @@
 "use client";
 
+import { Badge, type Tone } from "@/components/ui/Badge";
 import type { AuditLog } from "@/types/audit-log";
+
+const ACTION_TONES: Record<string, Tone> = {
+  CREATE: "positive",
+  UPDATE: "caution",
+  DELETE: "critical",
+  DENY: "critical",
+  GRANT: "info",
+  REVOKE: "info",
+};
+
+function actionTone(action: string): Tone {
+  return ACTION_TONES[action.toUpperCase()] ?? "neutral";
+}
 
 function formatTime(epochMs?: number | null): string {
   if (!epochMs) return "—";
@@ -9,13 +23,13 @@ function formatTime(epochMs?: number | null): string {
 
 export function AuditLogTable({ logs }: { logs: AuditLog[] }) {
   if (logs.length === 0) {
-    return <p className="text-sm text-gray-500">No audit logs found</p>;
+    return <p className="text-sm text-slate-500">No audit logs found</p>;
   }
 
   return (
     <div className="overflow-x-auto rounded border">
       <table className="min-w-full text-sm">
-        <thead className="bg-gray-50 text-left">
+        <thead className="bg-slate-50 text-left">
           <tr>
             <th className="px-3 py-2 font-medium">Time</th>
             <th className="px-3 py-2 font-medium">Action</th>
@@ -29,9 +43,7 @@ export function AuditLogTable({ logs }: { logs: AuditLog[] }) {
             <tr key={log.id} className="border-t">
               <td className="whitespace-nowrap px-3 py-2">{formatTime(log.created_at)}</td>
               <td className="px-3 py-2">
-                <span className="rounded bg-gray-100 px-2 py-0.5 font-mono text-xs">
-                  {log.action}
-                </span>
+                <Badge tone={actionTone(log.action)}>{log.action}</Badge>
               </td>
               <td className="px-3 py-2">{log.resource}</td>
               <td className="max-w-xs truncate px-3 py-2 font-mono text-xs">

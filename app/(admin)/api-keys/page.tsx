@@ -22,7 +22,7 @@ function ApiKeyContent() {
   const [scopesText, setScopesText] = useState<string | null>(null);
 
   if (isLoading) return <p>Loading…</p>;
-  if (error || !key) return <p className="text-sm text-red-600">{error ?? "No API key found"}</p>;
+  if (error || !key) return <p className="text-sm text-critical">{error ?? "No API key found"}</p>;
 
   const doRotate = async () => {
     await rotate();
@@ -56,14 +56,14 @@ function ApiKeyContent() {
             <button
               type="button"
               onClick={() => setRevealed((v) => !v)}
-              className="rounded border px-3 py-1 text-sm"
+              className="rounded-md border border-line bg-surface px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm transition-colors hover:bg-slate-50"
             >
               {revealed ? "Hide" : "Reveal"}
             </button>
             <button
               type="button"
               onClick={() => void navigator.clipboard.writeText(key.key)}
-              className="rounded border px-3 py-1 text-sm"
+              className="rounded-md border border-line bg-surface px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm transition-colors hover:bg-slate-50"
             >
               Copy
             </button>
@@ -71,11 +71,11 @@ function ApiKeyContent() {
         </div>
         <dl className="mt-3 space-y-1 text-sm">
           <div className="flex gap-2">
-            <dt className="w-28 text-gray-500">Status</dt>
+            <dt className="w-28 text-slate-500">Status</dt>
             <dd>{key.is_active ? "Active" : "Inactive"}</dd>
           </div>
           <div className="flex gap-2">
-            <dt className="w-28 text-gray-500">Expires</dt>
+            <dt className="w-28 text-slate-500">Expires</dt>
             <dd>{key.expires_at ? new Date(key.expires_at).toLocaleString() : "Never"}</dd>
           </div>
         </dl>
@@ -97,7 +97,7 @@ function ApiKeyContent() {
           {isUpdating ? "Saving…" : "Save scopes"}
         </button>
       </div>
-      {rotateError && <p className="text-sm text-red-600">{rotateError}</p>}
+      {rotateError && <p className="text-sm text-critical">{rotateError}</p>}
       <div className="flex gap-2">
         <button
           type="button"
@@ -110,7 +110,7 @@ function ApiKeyContent() {
           type="button"
           onClick={() => setConfirmDeactivate(true)}
           disabled={!key.is_active}
-          className="rounded border border-red-600 px-4 py-2 text-red-600 disabled:opacity-50"
+          className="rounded border border-red-600 px-4 py-2 text-critical disabled:opacity-50"
         >
           Deactivate
         </button>

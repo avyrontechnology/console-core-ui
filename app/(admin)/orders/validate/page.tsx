@@ -13,7 +13,9 @@ function ValidateContent() {
   return (
     <div className="space-y-4">
       <h1 className="text-xl font-semibold">Validate payment</h1>
-      <p className="text-sm text-gray-500">Terminal on SUCCESS/REFUNDED. FAILED stays retryable.</p>
+      <p className="text-sm text-slate-500">
+        Terminal on SUCCESS/REFUNDED. FAILED stays retryable.
+      </p>
       <ValidateOrderForm
         isSaving={isSaving}
         serverError={error}

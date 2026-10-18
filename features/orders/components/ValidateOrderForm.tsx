@@ -37,7 +37,7 @@ export function ValidateOrderForm({
         {...register("payment_id")}
       />
       <TextField label="Signature" error={errors.signature?.message} {...register("signature")} />
-      {serverError && <p className="text-sm text-red-600">{serverError}</p>}
+      {serverError && <p className="text-sm text-critical">{serverError}</p>}
       <button
         type="submit"
         disabled={isSaving}

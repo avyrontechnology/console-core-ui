@@ -1,6 +1,7 @@
 "use client";
 
 import type { Column } from "@/components/ui/DataTable";
+import { Badge } from "@/components/ui/Badge";
 import { DataTable } from "@/components/ui/DataTable";
 import type { User } from "@/types/user";
 
@@ -11,7 +12,11 @@ export const userColumns: Column<User>[] = [
   {
     key: "is_active",
     header: "Status",
-    render: (row) => (row.is_active ? "Active" : "Inactive"),
+    render: (row) => (
+      <Badge tone={row.is_active ? "positive" : "neutral"}>
+        {row.is_active ? "Active" : "Inactive"}
+      </Badge>
+    ),
   },
 ];
 

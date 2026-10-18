@@ -11,10 +11,10 @@ function PaymentsContent() {
     <div className="space-y-4">
       <h1 className="text-xl font-semibold">Payments</h1>
       {isLoading && <p>Loading…</p>}
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && <p className="text-sm text-critical">{error}</p>}
       {!isLoading && !error && (
         <>
-          <p className="text-sm text-gray-500">Total: {data?.total_count ?? 0}</p>
+          <p className="text-sm text-slate-500">Total: {data?.total_count ?? 0}</p>
           <PaymentHistoryTable rows={data?.data ?? []} />
         </>
       )}

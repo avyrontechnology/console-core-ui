@@ -37,15 +37,15 @@ function UserConfigsContent() {
         <button
           type="button"
           onClick={() => void refresh()}
-          className="rounded border px-3 py-1 text-sm"
+          className="rounded-md border border-line bg-surface px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm transition-colors hover:bg-slate-50"
         >
           Load
         </button>
       </div>
 
       {isLoading && <p>Loading…</p>}
-      {error && <p className="text-sm text-red-600">{error}</p>}
-      {!isLoading && data && <p className="text-sm text-gray-600">{data.length} config entries</p>}
+      {error && <p className="text-sm text-critical">{error}</p>}
+      {!isLoading && data && <p className="text-sm text-slate-600">{data.length} config entries</p>}
 
       <div className="flex items-end gap-3">
         <TextField

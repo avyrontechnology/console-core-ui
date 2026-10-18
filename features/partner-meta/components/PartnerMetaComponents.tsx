@@ -22,28 +22,28 @@ export function PartnerMetaSection({
     <div className="rounded border p-4 text-sm">
       <p className="mb-2 font-medium">Business meta</p>
       {!meta ? (
-        <p className="text-gray-500">No meta yet — fill below to create.</p>
+        <p className="text-slate-500">No meta yet — fill below to create.</p>
       ) : (
         <dl className="space-y-1">
           <div className="flex gap-2">
-            <dt className="w-32 text-gray-500">Business</dt>
+            <dt className="w-32 text-slate-500">Business</dt>
             <dd>{meta.type_of_business?.trim() || "—"}</dd>
           </div>
           <div className="flex gap-2">
-            <dt className="w-32 text-gray-500">Years</dt>
+            <dt className="w-32 text-slate-500">Years</dt>
             <dd>{meta.years_in_business ?? "—"}</dd>
           </div>
           <div className="flex gap-2">
-            <dt className="w-32 text-gray-500">Revenue</dt>
+            <dt className="w-32 text-slate-500">Revenue</dt>
             <dd>{meta.annual_revenue ?? "—"}</dd>
           </div>
           <div className="flex gap-2">
-            <dt className="w-32 text-gray-500">Talko</dt>
+            <dt className="w-32 text-slate-500">Talko</dt>
             <dd>{meta.is_talko_enabled ? "Enabled" : "Disabled"}</dd>
           </div>
         </dl>
       )}
-      <p className="mt-2 text-xs text-gray-400">Partner: {partnerId}</p>
+      <p className="mt-2 text-xs text-slate-400">Partner: {partnerId}</p>
     </div>
   );
 }
@@ -107,7 +107,7 @@ export function PartnerMetaForm({
         <input type="checkbox" {...register("is_talko_enabled")} />
         Talko enabled
       </label>
-      {serverError && <p className="text-sm text-red-600">{serverError}</p>}
+      {serverError && <p className="text-sm text-critical">{serverError}</p>}
       <button
         type="submit"
         disabled={isSaving}

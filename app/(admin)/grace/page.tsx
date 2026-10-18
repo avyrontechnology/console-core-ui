@@ -15,7 +15,7 @@ function GraceContent() {
   return (
     <div className="space-y-4">
       <h1 className="text-xl font-semibold">Grace</h1>
-      <p className="text-sm text-gray-500">
+      <p className="text-sm text-slate-500">
         Internal only. Services derive from the last SUCCESS order.
       </p>
       <div className="flex max-w-lg gap-2">
@@ -35,7 +35,7 @@ function GraceContent() {
         </button>
       </div>
       {isLoading && <p>Loading…</p>}
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && <p className="text-sm text-critical">{error}</p>}
       {!isLoading && !error && data && <GraceStatusCard status={data} />}
       <h2 className="font-medium">Grant grace</h2>
       <GrantGraceForm

@@ -39,7 +39,7 @@ export function GrantGraceForm({
         {...register("granted_days")}
       />
       <TextField label="Remark" error={errors.remark?.message} {...register("remark")} />
-      {serverError && <p className="text-sm text-red-600">{serverError}</p>}
+      {serverError && <p className="text-sm text-critical">{serverError}</p>}
       <button
         type="submit"
         disabled={isSaving}
@@ -57,7 +57,7 @@ export function GraceStatusCard({ status }: { status: GraceStatus }) {
       <p className="font-medium">
         {status.service_name}: {status.has_active_grace ? "Active grace" : "No active grace"}
       </p>
-      <p className="text-sm text-gray-500">
+      <p className="text-sm text-slate-500">
         Used {status.total_attempts_used} · remaining {status.attempts_remaining} · consumed{" "}
         {status.total_consumed_days}d
       </p>

@@ -25,7 +25,7 @@ function RolesContent() {
         </div>
       </div>
       {isLoading && <p>Loading…</p>}
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && <p className="text-sm text-critical">{error}</p>}
       {!isLoading && !error && (
         <RoleTable roles={roles ?? []} onSelect={(role) => router.push(`/roles/${role.id}`)} />
       )}

@@ -63,10 +63,10 @@ export function ManualOrderForm({
           <option value="DIRECT">DIRECT (provision immediately)</option>
         </select>
         {errors.payment_method?.message && (
-          <p className="mt-1 text-sm text-red-600">{errors.payment_method.message}</p>
+          <p className="mt-1 text-sm text-critical">{errors.payment_method.message}</p>
         )}
       </div>
-      {serverError && <p className="text-sm text-red-600">{serverError}</p>}
+      {serverError && <p className="text-sm text-critical">{serverError}</p>}
       <BillingPreview planId={planId} />
       <button
         type="submit"

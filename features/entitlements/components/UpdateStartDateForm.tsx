@@ -33,10 +33,10 @@ export function UpdateStartDateForm({
         error={errors.start_date?.message}
         {...register("start_date")}
       />
-      <p className="text-xs text-gray-500">
+      <p className="text-xs text-slate-500">
         Fresh orders only. End date shifts by order duration automatically.
       </p>
-      {serverError && <p className="text-sm text-red-600">{serverError}</p>}
+      {serverError && <p className="text-sm text-critical">{serverError}</p>}
       <button
         type="submit"
         disabled={isSaving}

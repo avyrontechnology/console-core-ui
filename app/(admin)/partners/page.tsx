@@ -20,7 +20,7 @@ function PartnersContent() {
         </Link>
       </div>
       {isLoading && <p>Loading…</p>}
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && <p className="text-sm text-critical">{error}</p>}
       {!isLoading && !error && (
         <PartnerTable
           partners={partners}

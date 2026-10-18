@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import ProtectedRoute from "@/components/ProtectedRoute";
+import { Button } from "@/components/ui/Button";
+import { PageHeader } from "@/components/ui/PageHeader";
 import { useUsers } from "@/features/users/hooks";
 import { UserTable } from "@/features/users/components/UserTable";
 
@@ -20,36 +22,28 @@ function UsersContent() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl font-semibold">Users</h1>
-        <Link href="/users/new" className="rounded bg-black px-4 py-2 text-white">
-          New user
-        </Link>
-      </div>
-      {isLoading && <p>Loading…</p>}
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      <PageHeader
+        title="Users"
+        description={`${totalCount} ${totalCount === 1 ? "user" : "users"} in this workspace`}
+        actions={
+          <Link
+            href="/users/new"
+            className="inline-flex items-center rounded-md border border-transparent bg-brand-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-brand-700"
+          >
+            New user
+          </Link>
+        }
+      />
+      {isLoading && <p className="text-sm text-slate-500">Loading…</p>}
+      {error && <p className="text-sm text-critical">{error}</p>}
       {!isLoading && !error && (
-        <>
-          <p className="text-sm text-gray-600">{totalCount} users</p>
-          <UserTable users={users} onSelect={(user) => router.push(`/users/${user.id}`)} />
-        </>
+        <UserTable users={users} onSelect={(user) => router.push(`/users/${user.id}`)} />
       )}
       <div className="flex gap-2">
-        <button
-          type="button"
-          disabled={page === 0}
-          onClick={() => setPage((p) => Math.max(0, p - 1))}
-          className="rounded border px-3 py-1 disabled:opacity-50"
-        >
+        <Button disabled={page === 0} onClick={() => setPage((p) => Math.max(0, p - 1))}>
           Previous
-        </button>
-        <button
-          type="button"
-          onClick={() => setPage((p) => p + 1)}
-          className="rounded border px-3 py-1"
-        >
-          Next
-        </button>
+        </Button>
+        <Button onClick={() => setPage((p) => p + 1)}>Next</Button>
       </div>
     </div>
   );

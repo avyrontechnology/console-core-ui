@@ -6,17 +6,17 @@ export function WalletOverview({ wallet }: { wallet: Wallet }) {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
       <div className="rounded border p-4">
-        <p className="text-sm text-gray-500">Balance</p>
+        <p className="text-sm text-slate-500">Balance</p>
         <p className="mt-1 text-2xl font-semibold">
           {wallet.balance} {wallet.currency}
         </p>
       </div>
       <div className="rounded border p-4">
-        <p className="text-sm text-gray-500">Frozen</p>
+        <p className="text-sm text-slate-500">Frozen</p>
         <p className="mt-1 text-2xl font-semibold">{wallet.frozen_balance}</p>
       </div>
       <div className="rounded border p-4">
-        <p className="text-sm text-gray-500">Available</p>
+        <p className="text-sm text-slate-500">Available</p>
         <p className="mt-1 text-2xl font-semibold">
           {Number(wallet.balance) - Number(wallet.frozen_balance)} {wallet.currency}
         </p>
@@ -27,14 +27,14 @@ export function WalletOverview({ wallet }: { wallet: Wallet }) {
 
 export function WalletTransactionTable({ transactions }: { transactions: WalletTransaction[] }) {
   if (transactions.length === 0) {
-    return <p className="py-8 text-center text-gray-500">No transactions found</p>;
+    return <p className="py-8 text-center text-slate-500">No transactions found</p>;
   }
 
   return (
     <div className="overflow-x-auto rounded border">
       <table className="w-full text-left text-sm">
         <thead>
-          <tr className="border-b bg-gray-50">
+          <tr className="border-b bg-slate-50">
             <th className="px-4 py-2 font-medium">Date</th>
             <th className="px-4 py-2 font-medium">Service</th>
             <th className="px-4 py-2 font-medium">Type</th>
@@ -45,7 +45,7 @@ export function WalletTransactionTable({ transactions }: { transactions: WalletT
         </thead>
         <tbody>
           {transactions.map((t) => (
-            <tr key={t.id} className="border-b last:border-0 hover:bg-gray-50">
+            <tr key={t.id} className="border-b last:border-0 hover:bg-slate-50">
               <td className="px-4 py-2">{new Date(t.created_at).toLocaleString()}</td>
               <td className="px-4 py-2">{t.service_name}</td>
               <td className="px-4 py-2">{t.transaction_type}</td>

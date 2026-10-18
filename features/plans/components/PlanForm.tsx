@@ -75,7 +75,7 @@ export function PlanForm({
       <fieldset>
         <legend className="mb-1 text-sm font-medium">Modules</legend>
         {availableModules.length === 0 && (
-          <p className="text-sm text-gray-500">No modules available</p>
+          <p className="text-sm text-slate-500">No modules available</p>
         )}
         <div className="space-y-1">
           {availableModules.map((mod) => (
@@ -86,7 +86,7 @@ export function PlanForm({
           ))}
         </div>
       </fieldset>
-      {serverError && <p className="text-sm text-red-600">{serverError}</p>}
+      {serverError && <p className="text-sm text-critical">{serverError}</p>}
       <button
         type="submit"
         disabled={isSaving}

@@ -1,41 +1,23 @@
-import Link from "next/link";
+import type { ReactNode } from "react";
 
-const NAV = [
-  { href: "/dashboard", label: "Dashboard" },
-  { href: "/users", label: "Users" },
-  { href: "/partners", label: "Partners" },
-  { href: "/roles", label: "Roles" },
-  { href: "/plans", label: "Plans" },
-  { href: "/orders", label: "Orders" },
-  { href: "/wallet", label: "Wallet" },
-  { href: "/entitlements", label: "Entitlements" },
-  { href: "/grace", label: "Grace" },
-  { href: "/payments", label: "Payments" },
-  { href: "/partner-meta", label: "Partner Meta" },
-  { href: "/api-keys", label: "API Keys" },
-  { href: "/audit-logs", label: "Audit Logs" },
-  { href: "/notifications", label: "Notifications" },
-  { href: "/user-configs", label: "User Configs" },
-];
+import Sidebar from "@/components/Sidebar";
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default function AdminLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="flex min-h-screen">
-      <aside className="w-60 shrink-0 border-r p-4">
-        <p className="mb-4 font-semibold">Console Core</p>
-        <nav className="space-y-1">
-          {NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="block rounded px-2 py-1 hover:bg-gray-100"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-      </aside>
-      <div className="flex-1 p-6">{children}</div>
+    <div className="flex min-h-screen bg-canvas">
+      <Sidebar />
+      <div className="flex min-w-0 flex-1 flex-col">
+        <div className="flex items-center justify-end gap-3 border-b border-line bg-surface px-6 py-3">
+          <span className="h-2 w-2 rounded-full bg-emerald-500" aria-hidden />
+          <span className="text-sm text-slate-500">Production</span>
+          <span className="rounded-md bg-brand-50 px-2 py-0.5 text-xs font-medium text-brand-700 ring-1 ring-inset ring-brand-200">
+            Console
+          </span>
+        </div>
+        <main className="flex-1 px-6 py-6">
+          <div className="mx-auto max-w-7xl space-y-6">{children}</div>
+        </main>
+      </div>
     </div>
   );
 }

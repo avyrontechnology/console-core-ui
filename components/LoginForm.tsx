@@ -48,7 +48,7 @@ export default function LoginForm() {
           className="w-full rounded border px-3 py-2"
           {...register("email")}
         />
-        {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>}
+        {errors.email && <p className="mt-1 text-sm text-critical">{errors.email.message}</p>}
       </div>
       <div>
         <label htmlFor="password" className="mb-1 block text-sm font-medium">
@@ -61,9 +61,9 @@ export default function LoginForm() {
           className="w-full rounded border px-3 py-2"
           {...register("password")}
         />
-        {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>}
+        {errors.password && <p className="mt-1 text-sm text-critical">{errors.password.message}</p>}
       </div>
-      {failed && <p className="text-sm text-red-600">Invalid email or password</p>}
+      {failed && <p className="text-sm text-critical">Invalid email or password</p>}
       <button
         type="submit"
         disabled={isSubmitting}

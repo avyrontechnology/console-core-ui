@@ -25,6 +25,7 @@ jest.mock("@/features/dashboard/hooks", () => ({
 
 jest.mock("next/navigation", () => ({
   useRouter: () => ({ push: jest.fn() }),
+  usePathname: () => "/dashboard",
 }));
 
 describe("app shell", () => {

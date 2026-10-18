@@ -15,7 +15,7 @@ function PlanDetailContent({ id }: { id: string }) {
   const [confirmDelete, setConfirmDelete] = useState(false);
 
   if (isLoading) return <p>Loading…</p>;
-  if (error || !plan) return <p className="text-sm text-red-600">{error ?? "Plan not found"}</p>;
+  if (error || !plan) return <p className="text-sm text-critical">{error ?? "Plan not found"}</p>;
 
   const destroy = async () => {
     await remove(plan.id);
@@ -32,31 +32,31 @@ function PlanDetailContent({ id }: { id: string }) {
         <button
           type="button"
           onClick={() => setConfirmDelete(true)}
-          className="rounded border border-red-600 px-4 py-2 text-red-600"
+          className="rounded border border-red-600 px-4 py-2 text-critical"
         >
           Delete
         </button>
       </div>
       <dl className="space-y-1 text-sm">
         <div className="flex gap-2">
-          <dt className="w-32 text-gray-500">Price</dt>
+          <dt className="w-32 text-slate-500">Price</dt>
           <dd>
             {plan.price ?? "—"} {plan.currency}
           </dd>
         </div>
         <div className="flex gap-2">
-          <dt className="w-32 text-gray-500">Duration</dt>
+          <dt className="w-32 text-slate-500">Duration</dt>
           <dd>{plan.duration} days</dd>
         </div>
         <div className="flex gap-2">
-          <dt className="w-32 text-gray-500">Status</dt>
+          <dt className="w-32 text-slate-500">Status</dt>
           <dd>{plan.is_active ? "Active" : "Inactive"}</dd>
         </div>
       </dl>
       <div>
         <h2 className="mb-1 text-sm font-medium">Modules</h2>
         {plan.modules.length === 0 ? (
-          <p className="text-sm text-gray-500">None</p>
+          <p className="text-sm text-slate-500">None</p>
         ) : (
           <ul className="list-disc pl-5 text-sm">
             {plan.modules.map((mod) => (

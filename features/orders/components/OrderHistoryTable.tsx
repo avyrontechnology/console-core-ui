@@ -9,14 +9,14 @@ function formatDate(ms?: number | null): string {
 
 export function OrderHistoryTable({ orders }: { orders: OrderHistoryItem[] }) {
   if (orders.length === 0) {
-    return <p className="py-8 text-center text-gray-500">No orders found</p>;
+    return <p className="py-8 text-center text-slate-500">No orders found</p>;
   }
 
   return (
     <div className="overflow-x-auto rounded border">
       <table className="w-full text-left text-sm">
         <thead>
-          <tr className="border-b bg-gray-50">
+          <tr className="border-b bg-slate-50">
             <th className="px-4 py-2 font-medium">Partner</th>
             <th className="px-4 py-2 font-medium">Plan</th>
             <th className="px-4 py-2 font-medium">Amount</th>
@@ -28,7 +28,7 @@ export function OrderHistoryTable({ orders }: { orders: OrderHistoryItem[] }) {
         </thead>
         <tbody>
           {orders.map((o) => (
-            <tr key={o.order_id} className="border-b last:border-0 hover:bg-gray-50">
+            <tr key={o.order_id} className="border-b last:border-0 hover:bg-slate-50">
               <td className="px-4 py-2">{o.partner_name ?? o.partner_id ?? "—"}</td>
               <td className="px-4 py-2">{o.plan_name ?? "—"}</td>
               <td className="px-4 py-2">

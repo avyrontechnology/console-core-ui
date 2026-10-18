@@ -25,7 +25,7 @@ function PlansContent() {
         </div>
       </div>
       {isLoading && <p>Loading…</p>}
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && <p className="text-sm text-critical">{error}</p>}
       {!isLoading && !error && (
         <PlanTable plans={plans ?? []} onSelect={(plan) => router.push(`/plans/${plan.id}`)} />
       )}

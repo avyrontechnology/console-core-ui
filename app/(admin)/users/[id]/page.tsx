@@ -19,7 +19,7 @@ function UserDetailContent({ id }: { id: string }) {
   const [designation, setDesignation] = useState<string | null>(null);
 
   if (isLoading) return <p>Loading…</p>;
-  if (error || !user) return <p className="text-sm text-red-600">{error ?? "User not found"}</p>;
+  if (error || !user) return <p className="text-sm text-critical">{error ?? "User not found"}</p>;
 
   const save = async () => {
     await update(user.id, {
@@ -42,15 +42,15 @@ function UserDetailContent({ id }: { id: string }) {
       <h1 className="text-xl font-semibold">{user.name}</h1>
       <dl className="space-y-1 text-sm">
         <div className="flex gap-2">
-          <dt className="w-28 text-gray-500">Email</dt>
+          <dt className="w-28 text-slate-500">Email</dt>
           <dd>{user.email}</dd>
         </div>
         <div className="flex gap-2">
-          <dt className="w-28 text-gray-500">Phone</dt>
+          <dt className="w-28 text-slate-500">Phone</dt>
           <dd>{user.phone_number}</dd>
         </div>
         <div className="flex gap-2">
-          <dt className="w-28 text-gray-500">Status</dt>
+          <dt className="w-28 text-slate-500">Status</dt>
           <dd>{user.is_active ? "Active" : "Inactive"}</dd>
         </div>
       </dl>
@@ -66,7 +66,7 @@ function UserDetailContent({ id }: { id: string }) {
         defaultValue={user.designation ?? ""}
         onChange={(event) => setDesignation(event.target.value)}
       />
-      {saveError && <p className="text-sm text-red-600">{saveError}</p>}
+      {saveError && <p className="text-sm text-critical">{saveError}</p>}
       <div className="flex gap-2">
         <button
           type="button"
@@ -79,7 +79,7 @@ function UserDetailContent({ id }: { id: string }) {
         <button
           type="button"
           onClick={() => setConfirmDelete(true)}
-          className="rounded border border-red-600 px-4 py-2 text-red-600"
+          className="rounded border border-red-600 px-4 py-2 text-critical"
         >
           Delete
         </button>

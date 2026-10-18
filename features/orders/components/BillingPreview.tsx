@@ -45,8 +45,8 @@ export function BillingPreview({ planId }: { planId: string }) {
   }, [planId]);
 
   if (!planId) return null;
-  if (isLoading) return <p className="text-sm text-gray-500">Calculating billing…</p>;
-  if (error) return <p className="text-sm text-red-600">{error}</p>;
+  if (isLoading) return <p className="text-sm text-slate-500">Calculating billing…</p>;
+  if (error) return <p className="text-sm text-critical">{error}</p>;
   if (!billing) return null;
 
   return (

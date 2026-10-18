@@ -21,12 +21,12 @@ export function Modal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4 backdrop-blur-[2px]"
       onClick={onClose}
       role="presentation"
     >
       <div
-        className="w-full max-w-md rounded bg-white p-6"
+        className="w-full max-w-md rounded-lg border border-line bg-surface p-6 shadow-raised"
         onClick={(event) => event.stopPropagation()}
         role="dialog"
         aria-modal="true"

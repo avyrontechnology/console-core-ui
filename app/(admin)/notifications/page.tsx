@@ -65,14 +65,14 @@ function NotificationsContent() {
           type="button"
           onClick={markAllRead}
           disabled={isSaving}
-          className="rounded border px-3 py-1 text-sm disabled:opacity-50"
+          className="rounded-md border border-line bg-surface px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm transition-colors hover:bg-slate-50 disabled:opacity-50"
         >
           Mark all read
         </button>
       </div>
 
       {isLoading && <p>Loading…</p>}
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && <p className="text-sm text-critical">{error}</p>}
       {!isLoading && !error && <NotificationList notifications={notifications ?? []} />}
 
       <section className="space-y-2">

@@ -17,7 +17,7 @@ export function PartnerOverview({ details }: { details: HomepageDetails }) {
     <div className="space-y-4">
       <div className="rounded border p-4">
         <h2 className="font-medium">{partner.partner_name || "Partner"}</h2>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-slate-500">
           {user.name} {user.designation ? `· ${user.designation}` : ""} · {user.email}
         </p>
         {partner.subscription_mode && (
@@ -27,15 +27,15 @@ export function PartnerOverview({ details }: { details: HomepageDetails }) {
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         <div className="rounded border p-4">
-          <p className="text-sm text-gray-500">Talko</p>
+          <p className="text-sm text-slate-500">Talko</p>
           <p className="font-medium">{services.is_talko_enabled ? "Enabled" : "Disabled"}</p>
         </div>
         <div className="rounded border p-4">
-          <p className="text-sm text-gray-500">ObotaAI</p>
+          <p className="text-sm text-slate-500">ObotaAI</p>
           <p className="font-medium">{services.is_obotaai_enabled ? "Enabled" : "Disabled"}</p>
         </div>
         <div className="rounded border p-4">
-          <p className="text-sm text-gray-500">Add number</p>
+          <p className="text-sm text-slate-500">Add number</p>
           <p className="font-medium">{services.is_add_number_enabled ? "Enabled" : "Disabled"}</p>
         </div>
       </div>

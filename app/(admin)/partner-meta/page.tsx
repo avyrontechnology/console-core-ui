@@ -38,10 +38,10 @@ function PartnerMetaContent() {
         </select>
       </div>
       {partnerId === "" && (
-        <p className="text-sm text-gray-500">Select a partner to view or edit business meta.</p>
+        <p className="text-sm text-slate-500">Select a partner to view or edit business meta.</p>
       )}
       {partnerId !== "" && isLoading && <p>Loading…</p>}
-      {partnerId !== "" && error && <p className="text-sm text-red-600">{error}</p>}
+      {partnerId !== "" && error && <p className="text-sm text-critical">{error}</p>}
       {partnerId !== "" && !isLoading && !error && (
         <>
           <PartnerMetaSection partnerId={partnerId} meta={meta} />

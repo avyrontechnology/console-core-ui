@@ -8,7 +8,7 @@ function cell(value: unknown): string {
 
 export function PaymentHistoryTable({ rows }: { rows: Array<Record<string, unknown>> }) {
   if (rows.length === 0) {
-    return <p className="py-8 text-center text-gray-500">No payments found</p>;
+    return <p className="py-8 text-center text-slate-500">No payments found</p>;
   }
 
   const sample = rows[0] ?? {};
@@ -21,7 +21,7 @@ export function PaymentHistoryTable({ rows }: { rows: Array<Record<string, unkno
     <div className="overflow-x-auto rounded border">
       <table className="w-full text-left text-sm">
         <thead>
-          <tr className="border-b bg-gray-50">
+          <tr className="border-b bg-slate-50">
             {cols.map((c) => (
               <th key={c} className="px-4 py-2 font-medium">
                 {c}
@@ -31,7 +31,7 @@ export function PaymentHistoryTable({ rows }: { rows: Array<Record<string, unkno
         </thead>
         <tbody>
           {rows.map((row, i) => (
-            <tr key={String(row["id"] ?? i)} className="border-b last:border-0 hover:bg-gray-50">
+            <tr key={String(row["id"] ?? i)} className="border-b last:border-0 hover:bg-slate-50">
               {cols.map((c) => (
                 <td key={c} className="px-4 py-2">
                   {cell(row[c])}

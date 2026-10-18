@@ -43,7 +43,7 @@ export function RoleForm({
         error={errors.description?.message}
         {...register("description")}
       />
-      {serverError && <p className="text-sm text-red-600">{serverError}</p>}
+      {serverError && <p className="text-sm text-critical">{serverError}</p>}
       <button
         type="submit"
         disabled={isSaving}

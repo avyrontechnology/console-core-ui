@@ -65,12 +65,16 @@ function AuditLogsContent() {
             ))}
           </select>
         </label>
-        <button type="button" onClick={apply} className="rounded border px-3 py-1 text-sm">
+        <button
+          type="button"
+          onClick={apply}
+          className="rounded-md border border-line bg-surface px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm transition-colors hover:bg-slate-50"
+        >
           Apply filters
         </button>
       </div>
       {isLoading && <p>Loading…</p>}
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && <p className="text-sm text-critical">{error}</p>}
       {!isLoading && !error && <AuditLogTable logs={logs ?? []} />}
     </div>
   );
