@@ -84,7 +84,7 @@ export function useMarkNotificationsRead() {
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const markRead = useCallback(async (notificationIds: number[] = []) => {
+  const markRead = useCallback(async (notificationIds: string[] = []) => {
     setIsSaving(true);
     setError(null);
     try {

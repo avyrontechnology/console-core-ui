@@ -67,7 +67,9 @@ describe("notifications hooks", () => {
     mocked.markRead.mockRejectedValue(new Error("fail"));
     const { result } = renderHook(() => useMarkNotificationsRead());
     await act(async () => {
-      await expect(result.current.markRead([1])).rejects.toThrow("fail");
+      await expect(
+        result.current.markRead(["11111111-1111-1111-1111-111111111111"]),
+      ).rejects.toThrow("fail");
     });
     expect(result.current.error).toBe("fail");
   });

@@ -30,9 +30,9 @@ export const notificationsApi = {
     return consoleApi.get<UnreadCount>(ENDPOINTS.NOTIFICATION_UNREAD_COUNT(serviceType));
   },
 
-  markRead(notificationIds?: number[]): Promise<string> {
+  markRead(notificationIds?: string[]): Promise<string> {
     // Empty array marks all notifications as read.
-    return consoleApi.patch<string, { notification_ids: number[] }>(
+    return consoleApi.patch<string, { notification_ids: string[] }>(
       ENDPOINTS.NOTIFICATION_MARK_READ(),
       { notification_ids: notificationIds ?? [] },
     );

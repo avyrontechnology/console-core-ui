@@ -55,9 +55,15 @@ describe("notificationsApi", () => {
 
   it("marks specific ids read", async () => {
     mocked.patch.mockResolvedValue("ok");
-    await notificationsApi.markRead([1, 2]);
+    await notificationsApi.markRead([
+      "11111111-1111-1111-1111-111111111111",
+      "22222222-2222-2222-2222-222222222222",
+    ]);
     expect(mocked.patch).toHaveBeenCalledWith(expect.stringContaining("/notifications/read"), {
-      notification_ids: [1, 2],
+      notification_ids: [
+        "11111111-1111-1111-1111-111111111111",
+        "22222222-2222-2222-2222-222222222222",
+      ],
     });
   });
 
