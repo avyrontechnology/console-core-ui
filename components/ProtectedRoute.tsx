@@ -2,6 +2,15 @@
 
 import { usePermissions } from "@/hooks/usePermissions";
 
+function Loading() {
+  return (
+    <div className="space-y-4" role="status" aria-busy="true" aria-label="Loading">
+      <div className="h-7 w-40 animate-pulse rounded-md bg-slate-200" />
+      <div className="h-64 animate-pulse rounded-lg border border-line bg-surface" />
+    </div>
+  );
+}
+
 function AccessDenied() {
   return (
     <main className="flex min-h-screen items-center justify-center">
@@ -20,7 +29,7 @@ export default function ProtectedRoute({
 }) {
   const { isLoading, hasPermission } = usePermissions();
 
-  if (isLoading) return null;
+  if (isLoading) return <Loading />;
   if (!hasPermission(requiredPermission)) return <AccessDenied />;
   return <>{children}</>;
 }

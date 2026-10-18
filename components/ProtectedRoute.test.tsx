@@ -24,6 +24,17 @@ describe("ProtectedRoute", () => {
     expect(screen.getByText("secret")).toBeInTheDocument();
   });
 
+  it("shows a loading skeleton while permissions resolve", () => {
+    mocked.mockReturnValue({ isLoading: true, hasPermission: jest.fn() });
+    render(
+      <ProtectedRoute requiredPermission="console:get_all_users">
+        <div>secret</div>
+      </ProtectedRoute>,
+    );
+    expect(screen.getByRole("status")).toBeInTheDocument();
+    expect(screen.queryByText("secret")).not.toBeInTheDocument();
+  });
+
   it("denies without the permission", () => {
     mocked.mockReturnValue({
       isLoading: false,
