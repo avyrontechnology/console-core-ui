@@ -146,4 +146,30 @@ export const ENDPOINTS = {
     const suffix = query.toString();
     return url(`/audit-logs${suffix ? `?${suffix}` : ""}`);
   },
+  NOTIFICATION_PREFERENCES: () => url("/notification/preferences"),
+  NOTIFICATION_HISTORY: (params?: {
+    service_type?: string;
+    limit?: number;
+    offset?: number;
+    state?: string;
+  }) => {
+    const query = new URLSearchParams();
+    if (params?.service_type) query.set("service_type", params.service_type);
+    if (params?.limit !== undefined) query.set("limit", String(params.limit));
+    if (params?.offset !== undefined) query.set("offset", String(params.offset));
+    if (params?.state) query.set("state", params.state);
+    const suffix = query.toString();
+    return url(`/notifications/history${suffix ? `?${suffix}` : ""}`);
+  },
+  NOTIFICATION_UNREAD_COUNT: (serviceType?: string) =>
+    url(
+      `/notifications/unread-count${serviceType ? `?service_type=${encodeURIComponent(serviceType)}` : ""}`,
+    ),
+  NOTIFICATION_MARK_READ: () => url("/notifications/read"),
+  NOTIFICATION_SUBSCRIBE: () => url("/notifications/subscribe"),
+  NOTIFICATION_UNSUBSCRIBE: (params: { service_type?: string; identifier: string }) => {
+    const query = new URLSearchParams({ identifier: params.identifier });
+    if (params.service_type) query.set("service_type", params.service_type);
+    return url(`/notifications/unsubscribe?${query.toString()}`);
+  },
 } as const;
