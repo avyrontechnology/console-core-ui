@@ -13,11 +13,7 @@ const PAGE_SIZE = 20;
 function UsersContent() {
   const router = useRouter();
   const [page, setPage] = useState(0);
-  const {
-    data: users,
-    isLoading,
-    error,
-  } = useUsers({
+  const { users, totalCount, isLoading, error } = useUsers({
     offset: page * PAGE_SIZE,
     limit: PAGE_SIZE,
   });
@@ -33,7 +29,10 @@ function UsersContent() {
       {isLoading && <p>Loading…</p>}
       {error && <p className="text-sm text-red-600">{error}</p>}
       {!isLoading && !error && (
-        <UserTable users={users ?? []} onSelect={(user) => router.push(`/users/${user.id}`)} />
+        <>
+          <p className="text-sm text-gray-600">{totalCount} users</p>
+          <UserTable users={users} onSelect={(user) => router.push(`/users/${user.id}`)} />
+        </>
       )}
       <div className="flex gap-2">
         <button

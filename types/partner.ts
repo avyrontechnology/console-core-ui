@@ -36,3 +36,11 @@ export type UpdatePartnerInput = Partial<
     | "phone_number"
   >
 >;
+
+/** POST /partners returns a paginated envelope, not a bare array. */
+export interface PaginatedPartners {
+  total_count: number;
+  limit: number;
+  offset: number;
+  partners_data: Partner[];
+}

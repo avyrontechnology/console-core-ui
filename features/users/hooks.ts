@@ -3,7 +3,14 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { usersApi } from "./api";
-import type { CreateUserInput, Role, UpdateUserInput, User, UserListParams } from "@/types/user";
+import type {
+  CreateUserInput,
+  PaginatedUsers,
+  Role,
+  UpdateUserInput,
+  User,
+  UserListParams,
+} from "@/types/user";
 
 interface AsyncState<T> {
   data: T | null;
@@ -19,7 +26,14 @@ const idle = <T>(data: T | null = null): AsyncState<T> => ({
 
 /** Paginated user list. Local state — no cross-screen cache needs Redux. */
 export function useUsers(params?: UserListParams) {
-  const [state, setState] = useState<AsyncState<User[]>>(idle([]));
+  const [state, setState] = useState<AsyncState<PaginatedUsers>>(
+    idle({
+      total_count: 0,
+      limit: params?.limit ?? 20,
+      offset: params?.offset ?? 0,
+      users_data: [],
+    }),
+  );
   const offset = params?.offset ?? 0;
   const limit = params?.limit ?? 20;
 
@@ -30,7 +44,7 @@ export function useUsers(params?: UserListParams) {
       setState({ data, isLoading: false, error: null });
     } catch (error) {
       setState({
-        data: [],
+        data: { total_count: 0, limit, offset, users_data: [] },
         isLoading: false,
         error: error instanceof Error ? error.message : "Failed to load users",
       });
@@ -41,7 +55,12 @@ export function useUsers(params?: UserListParams) {
     void refresh();
   }, [refresh]);
 
-  return { ...state, refresh };
+  return {
+    ...state,
+    users: state.data?.users_data ?? [],
+    totalCount: state.data?.total_count ?? 0,
+    refresh,
+  };
 }
 
 export function useUser(id: string | null) {

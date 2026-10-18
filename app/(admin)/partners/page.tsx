@@ -9,7 +9,7 @@ import { usePartners } from "@/features/partners/hooks";
 
 function PartnersContent() {
   const router = useRouter();
-  const { data: partners, isLoading, error } = usePartners();
+  const { partners, isLoading, error } = usePartners();
 
   return (
     <div className="space-y-4">
@@ -23,7 +23,7 @@ function PartnersContent() {
       {error && <p className="text-sm text-red-600">{error}</p>}
       {!isLoading && !error && (
         <PartnerTable
-          partners={partners ?? []}
+          partners={partners}
           onSelect={(partner) => router.push(`/partners/${partner.id}`)}
         />
       )}

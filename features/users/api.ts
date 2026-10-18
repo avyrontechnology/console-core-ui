@@ -1,11 +1,18 @@
 import { consoleApi } from "@/lib/console";
 import { ENDPOINTS } from "@/lib/endpoints";
-import type { CreateUserInput, Role, UpdateUserInput, User, UserListParams } from "@/types/user";
+import type {
+  CreateUserInput,
+  PaginatedUsers,
+  Role,
+  UpdateUserInput,
+  User,
+  UserListParams,
+} from "@/types/user";
 
 /** All user HTTP calls, in one place. No URL literals, no axios elsewhere. */
 export const usersApi = {
-  list(params?: UserListParams): Promise<User[]> {
-    return consoleApi.get<User[]>(ENDPOINTS.USERS(params));
+  list(params?: UserListParams): Promise<PaginatedUsers> {
+    return consoleApi.get<PaginatedUsers>(ENDPOINTS.USERS(params));
   },
 
   getById(id: string): Promise<User> {

@@ -12,7 +12,7 @@ import { usePartners } from "@/features/partners/hooks";
 
 function PartnerMetaContent() {
   const [partnerId, setPartnerId] = useState("");
-  const { data: partners } = usePartners();
+  const { partners } = usePartners();
   const { data: meta, isLoading, error } = usePartnerMeta(partnerId || null);
   const { save, isSaving, error: saveError } = useSavePartnerMeta();
 
@@ -30,7 +30,7 @@ function PartnerMetaContent() {
           onChange={(event) => setPartnerId(event.target.value)}
         >
           <option value="">Select a partner</option>
-          {(partners ?? []).map((partner) => (
+          {partners.map((partner) => (
             <option key={partner.id} value={partner.id}>
               {partner.name}
             </option>

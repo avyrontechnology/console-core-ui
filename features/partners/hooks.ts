@@ -3,7 +3,12 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { partnersApi } from "./api";
-import type { CreatePartnerInput, Partner, UpdatePartnerInput } from "@/types/partner";
+import type {
+  CreatePartnerInput,
+  PaginatedPartners,
+  Partner,
+  UpdatePartnerInput,
+} from "@/types/partner";
 
 interface AsyncState<T> {
   data: T | null;
@@ -29,7 +34,9 @@ interface MutationState {
 const idleMutation: MutationState = { isSaving: false, error: null };
 
 export function usePartners() {
-  const [state, setState] = useState<AsyncState<Partner[]>>(idle([]));
+  const [state, setState] = useState<AsyncState<PaginatedPartners>>(
+    idle({ total_count: 0, limit: 100, offset: 0, partners_data: [] }),
+  );
 
   const refresh = useCallback(async () => {
     setState((s) => ({ ...s, isLoading: true, error: null }));
@@ -37,7 +44,11 @@ export function usePartners() {
       const data = await partnersApi.list();
       setState({ data, isLoading: false, error: null });
     } catch (error) {
-      setState({ data: [], isLoading: false, error: toMessage(error) });
+      setState({
+        data: { total_count: 0, limit: 100, offset: 0, partners_data: [] },
+        isLoading: false,
+        error: toMessage(error),
+      });
     }
   }, []);
 
@@ -45,7 +56,12 @@ export function usePartners() {
     void refresh();
   }, [refresh]);
 
-  return { ...state, refresh };
+  return {
+    ...state,
+    partners: state.data?.partners_data ?? [],
+    totalCount: state.data?.total_count ?? 0,
+    refresh,
+  };
 }
 
 export function usePartner(id: string | null) {

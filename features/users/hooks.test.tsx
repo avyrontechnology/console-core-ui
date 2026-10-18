@@ -34,7 +34,7 @@ describe("users hooks", () => {
     const { result } = renderHook(() => useUsers());
     await waitFor(() => expect(result.current.isLoading).toBe(false));
     expect(result.current.error).toBe("boom");
-    expect(result.current.data).toEqual([]);
+    expect(result.current.users).toEqual([]);
   });
 
   it("useUser skips null id", () => {

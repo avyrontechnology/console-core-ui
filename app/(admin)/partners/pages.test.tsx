@@ -60,7 +60,8 @@ describe("partner pages", () => {
 
   it("list renders rows", () => {
     (usePartners as jest.Mock).mockReturnValue({
-      data: [partner],
+      partners: [partner],
+      totalCount: 1,
       isLoading: false,
       error: null,
     });

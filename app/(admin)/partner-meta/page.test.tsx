@@ -32,7 +32,7 @@ describe("PartnerMetaPage", () => {
   });
 
   it("prompts for partner selection", () => {
-    (usePartners as jest.Mock).mockReturnValue({ data: [] });
+    (usePartners as jest.Mock).mockReturnValue({ partners: [], totalCount: 0 });
     (usePartnerMeta as jest.Mock).mockReturnValue({
       data: null,
       isLoading: false,
@@ -51,7 +51,8 @@ describe("PartnerMetaPage", () => {
     const u = userEvent.setup();
     const save = jest.fn().mockResolvedValue({ ...meta });
     (usePartners as jest.Mock).mockReturnValue({
-      data: [{ id: "p1", name: "Acme" }],
+      partners: [{ id: "p1", name: "Acme" }],
+      totalCount: 1,
     });
     (usePartnerMeta as jest.Mock).mockReturnValue({
       data: meta,

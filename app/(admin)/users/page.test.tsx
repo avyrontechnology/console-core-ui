@@ -29,7 +29,7 @@ const mockedUseUsers = useUsers as jest.Mock;
 describe("UsersPage", () => {
   it("renders list state", () => {
     mockedUseUsers.mockReturnValue({
-      data: [
+      users: [
         {
           id: "1",
           name: "Alice",
@@ -40,6 +40,7 @@ describe("UsersPage", () => {
           is_active: true,
         },
       ],
+      totalCount: 1,
       isLoading: false,
       error: null,
     });
@@ -49,7 +50,8 @@ describe("UsersPage", () => {
 
   it("renders loading and error states", () => {
     mockedUseUsers.mockReturnValue({
-      data: [],
+      users: [],
+      totalCount: 0,
       isLoading: true,
       error: null,
     });
@@ -57,7 +59,8 @@ describe("UsersPage", () => {
     expect(screen.getByText(/loading/i)).toBeInTheDocument();
     unmount();
     mockedUseUsers.mockReturnValue({
-      data: [],
+      users: [],
+      totalCount: 0,
       isLoading: false,
       error: "down",
     });

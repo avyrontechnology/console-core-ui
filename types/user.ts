@@ -59,3 +59,11 @@ export interface Role {
   description?: string | null;
   is_active: boolean;
 }
+
+/** GET /users returns a paginated envelope, not a bare array. */
+export interface PaginatedUsers {
+  total_count: number;
+  limit: number;
+  offset: number;
+  users_data: User[];
+}

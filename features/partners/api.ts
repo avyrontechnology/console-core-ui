@@ -1,11 +1,16 @@
 import { consoleApi } from "@/lib/console";
 import { ENDPOINTS } from "@/lib/endpoints";
-import type { CreatePartnerInput, Partner, UpdatePartnerInput } from "@/types/partner";
+import type {
+  PaginatedPartners,
+  CreatePartnerInput,
+  Partner,
+  UpdatePartnerInput,
+} from "@/types/partner";
 
 /** All partner HTTP calls, in one place. List is POST (filter body). */
 export const partnersApi = {
-  list(): Promise<Partner[]> {
-    return consoleApi.post<Partner[]>(ENDPOINTS.PARTNERS(), {});
+  list(): Promise<PaginatedPartners> {
+    return consoleApi.post<PaginatedPartners>(ENDPOINTS.PARTNERS(), {});
   },
 
   getById(id: string): Promise<Partner> {
