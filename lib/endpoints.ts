@@ -36,6 +36,7 @@ export const ENDPOINTS = {
   ROLE_UPDATE: (id: string) => url(`/role/${id}`),
   ROLE_DELETE: (id: string) => url(`/role/${id}`),
   PERMISSIONS_LIST: () => url("/permission"),
+  USER_PERMISSIONS: () => url("/user/permissions"),
   PERMISSION_MATRIX: () => url("/get_permissions_for_all_roles"),
   ROLE_ACTION_PERMISSIONS: (roleId: string) =>
     url(`/default_role_permission/role/${roleId}/action-permissions`),
