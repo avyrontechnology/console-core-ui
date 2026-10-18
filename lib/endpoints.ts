@@ -45,13 +45,13 @@ export const ENDPOINTS = {
     if (params?.service_name) query.set("service_name", params.service_name);
     if (params?.plan_type) query.set("plan_type", params.plan_type);
     const suffix = query.toString();
-    return url(`/get-plans${suffix ? `?${suffix}` : ""}`);
+    return url(`/plans/get-plans${suffix ? `?${suffix}` : ""}`);
   },
-  PLAN_BY_ID: (id: string) => url(`/get-plan-by-id/${id}`),
-  PLAN_CREATE: () => url("/create-plan"),
-  PLAN_UPDATE: (id: string) => url(`/update-plan/${id}`),
-  PLAN_DELETE: (id: string) => url(`/delete-plan/${id}`),
-  PLAN_MODULES: () => url("/get-modules"),
+  PLAN_BY_ID: (id: string) => url(`/plans/get-plan-by-id/${id}`),
+  PLAN_CREATE: () => url("/plans/create-plan"),
+  PLAN_UPDATE: (id: string) => url(`/plans/update-plan/${id}`),
+  PLAN_DELETE: (id: string) => url(`/plans/delete-plan/${id}`),
+  PLAN_MODULES: () => url("/plans/get-modules"),
   ORDERS_HISTORY: (params?: {
     partner_ids?: string;
     limit?: number;

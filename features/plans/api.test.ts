@@ -26,10 +26,10 @@ describe("plansApi", () => {
     mocked.get.mockResolvedValue([]);
     await plansApi.list({ service_name: "console", plan_type: "premium" });
     expect(mocked.get).toHaveBeenCalledWith(
-      expect.stringContaining("/get-plans?service_name=console&plan_type=premium"),
+      expect.stringContaining("/plans/get-plans?service_name=console&plan_type=premium"),
     );
     await plansApi.list();
-    expect(mocked.get).toHaveBeenCalledWith(expect.stringMatching(/\/get-plans$/));
+    expect(mocked.get).toHaveBeenCalledWith(expect.stringMatching(/\/plans\/get-plans$/));
   });
 
   it("CRUDs plans by id", async () => {
@@ -52,7 +52,7 @@ describe("plansApi", () => {
     await plansApi.remove(id);
     expect(mocked.get).toHaveBeenCalledWith(expect.stringContaining(id));
     expect(mocked.post).toHaveBeenCalledWith(
-      expect.stringContaining("/create-plan"),
+      expect.stringContaining("/plans/create-plan"),
       expect.objectContaining({ name: "P" }),
     );
     expect(mocked.patch).toHaveBeenCalledWith(expect.stringContaining(id), { name: "P2" });
@@ -64,6 +64,6 @@ describe("plansApi", () => {
     await expect(plansApi.modules()).resolves.toEqual({
       console: ["dashboard"],
     });
-    expect(mocked.get).toHaveBeenCalledWith(expect.stringContaining("/get-modules"));
+    expect(mocked.get).toHaveBeenCalledWith(expect.stringContaining("/plans/get-modules"));
   });
 });
