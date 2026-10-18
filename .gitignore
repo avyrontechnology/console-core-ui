@@ -7,3 +7,6 @@ coverage/
 .DS_Store
 
 *.tsbuildinfo
+
+# production build output (NEXT_DIST_DIR)
+.next-build/
