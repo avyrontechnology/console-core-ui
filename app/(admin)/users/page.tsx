@@ -14,7 +14,7 @@ function UsersContent() {
   const router = useRouter();
   const [page, setPage] = useState(0);
   const { users, totalCount, isLoading, error } = useUsers({
-    offset: page * PAGE_SIZE,
+    offset: page * PAGE_SIZE + 1, // backend offset is 1-based
     limit: PAGE_SIZE,
   });
 

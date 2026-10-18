@@ -24,17 +24,20 @@ const idle = <T>(data: T | null = null): AsyncState<T> => ({
   error: null,
 });
 
+/** GET /users is 1-based: offset must be >= 1 or the API 422s. */
+const FIRST_PAGE_OFFSET = 1;
+
 /** Paginated user list. Local state — no cross-screen cache needs Redux. */
 export function useUsers(params?: UserListParams) {
   const [state, setState] = useState<AsyncState<PaginatedUsers>>(
     idle({
       total_count: 0,
       limit: params?.limit ?? 20,
-      offset: params?.offset ?? 0,
+      offset: params?.offset ?? FIRST_PAGE_OFFSET,
       users_data: [],
     }),
   );
-  const offset = params?.offset ?? 0;
+  const offset = params?.offset ?? FIRST_PAGE_OFFSET;
   const limit = params?.limit ?? 20;
 
   const refresh = useCallback(async () => {
