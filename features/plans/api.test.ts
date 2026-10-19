@@ -59,11 +59,14 @@ describe("plansApi", () => {
     expect(mocked.delete).toHaveBeenCalledWith(expect.stringContaining(id));
   });
 
-  it("fetches modules", async () => {
-    mocked.get.mockResolvedValue({ console: ["dashboard"] });
-    await expect(plansApi.modules()).resolves.toEqual({
-      console: ["dashboard"],
-    });
+  it("fetches modules and unwraps the envelope", async () => {
+    mocked.get.mockResolvedValue({ modules: { console: ["dashboard"] } });
+    await expect(plansApi.modules()).resolves.toEqual({ console: ["dashboard"] });
     expect(mocked.get).toHaveBeenCalledWith(expect.stringContaining("/plans/get-modules"));
+  });
+
+  it("returns an empty map when the envelope is missing modules", async () => {
+    mocked.get.mockResolvedValue({ modules: {} });
+    await expect(plansApi.modules()).resolves.toEqual({});
   });
 });

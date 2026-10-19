@@ -30,7 +30,10 @@ export const plansApi = {
     return consoleApi.delete<void>(ENDPOINTS.PLAN_DELETE(id));
   },
 
-  modules(): Promise<ServiceModules> {
-    return consoleApi.get<ServiceModules>(ENDPOINTS.PLAN_MODULES());
+  async modules(): Promise<ServiceModules> {
+    // The endpoint wraps the map: {modules: {service: [mod, ...]}}. Returning
+    // the envelope made callers iterate over the wrapper key and render it.
+    const data = await consoleApi.get<{ modules?: ServiceModules }>(ENDPOINTS.PLAN_MODULES());
+    return data?.modules ?? {};
   },
 };

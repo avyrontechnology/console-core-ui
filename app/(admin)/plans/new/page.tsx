@@ -10,7 +10,13 @@ function NewPlanContent() {
   const router = useRouter();
   const { create, isSaving, error } = useCreatePlan();
   const { data: modules } = usePlanModules();
-  const availableModules = Array.from(new Set(Object.values(modules ?? {}).flat())).sort();
+  const availableModules = Array.from(
+    new Set(
+      Object.values(modules ?? {})
+        .flat()
+        .filter((m): m is string => typeof m === "string"),
+    ),
+  ).sort();
 
   return (
     <div className="space-y-4">

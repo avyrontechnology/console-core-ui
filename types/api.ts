@@ -35,7 +35,8 @@ export interface PartnerInfo {
 
 export interface HomepageData {
   user_info: UserInfo;
-  user_permissions: string[];
+  /** Feature flags (can_view_users, ...), NOT RBAC slugs. */
+  user_permissions: Record<string, boolean>;
   partner_info: PartnerInfo | null;
   services_info: Record<string, unknown> | null;
 }

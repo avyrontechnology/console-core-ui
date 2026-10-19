@@ -3,7 +3,8 @@ import type { HomepageData, PartnerInfo } from "@/types/api";
 declare module "next-auth" {
   interface Session {
     accessToken: string;
-    permissions: string[];
+    /** Feature flags from the homepage payload, not RBAC slugs. */
+    permissions: Record<string, boolean>;
     partnerInfo: PartnerInfo | null;
     servicesInfo: Record<string, unknown> | null;
     user: {
@@ -17,7 +18,8 @@ declare module "next-auth" {
 declare module "next-auth/jwt" {
   interface JWT {
     accessToken: string;
-    permissions: string[];
+    /** Feature flags from the homepage payload, not RBAC slugs. */
+    permissions: Record<string, boolean>;
     partnerInfo: PartnerInfo | null;
     servicesInfo: Record<string, unknown> | null;
     userInfo?: HomepageData["user_info"];
