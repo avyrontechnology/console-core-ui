@@ -2,11 +2,14 @@ import { act, renderHook, waitFor } from "@testing-library/react";
 
 import { useSession } from "next-auth/react";
 
-import { fetchUserPermissions } from "@/features/auth/api";
+import { fetchUserPermissions, SessionExpiredError } from "@/features/auth/api";
 import { usePermissions } from "@/hooks/usePermissions";
 
 jest.mock("next-auth/react", () => ({ useSession: jest.fn() }));
-jest.mock("@/features/auth/api", () => ({ fetchUserPermissions: jest.fn() }));
+jest.mock("@/features/auth/api", () => ({
+  fetchUserPermissions: jest.fn(),
+  SessionExpiredError: class SessionExpiredError extends Error {},
+}));
 
 const session = useSession as unknown as jest.Mock;
 const mockedFetch = fetchUserPermissions as unknown as jest.Mock;
@@ -41,6 +44,13 @@ describe("usePermissions", () => {
     const { result } = renderHook(() => usePermissions());
     await waitFor(() => expect(result.current.isLoading).toBe(false));
     expect(result.current.hasPermission("can_view_users")).toBe(true);
+  });
+
+  it("does not fall back to flags when the session expired", async () => {
+    mockedFetch.mockRejectedValue(new SessionExpiredError());
+    const { result } = renderHook(() => usePermissions());
+    await waitFor(() => expect(result.current.isLoading).toBe(false));
+    expect(result.current.permissions).toEqual([]);
   });
 
   it("never crashes on a non-array, non-object payload", async () => {

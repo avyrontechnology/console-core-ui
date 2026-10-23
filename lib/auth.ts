@@ -19,7 +19,12 @@ async function authorizeWithBackend(email: string, password: string) {
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   trustHost: true,
-  session: { strategy: "jwt", maxAge: 2 * 24 * 60 * 60 },
+  session: {
+    strategy: "jwt",
+    // Keep the UI session shorter than the console token (default 24h), so the
+    // app re-authenticates before the stored access token goes stale.
+    maxAge: 23 * 60 * 60,
+  },
   providers: [
     Credentials({
       credentials: {

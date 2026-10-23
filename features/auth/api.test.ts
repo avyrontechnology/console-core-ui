@@ -1,4 +1,6 @@
-import { fetchUserPermissions } from "@/features/auth/api";
+import { fetchUserPermissions, SessionExpiredError } from "@/features/auth/api";
+
+jest.mock("next-auth/react", () => ({ signOut: jest.fn() }));
 import { ENDPOINTS } from "@/lib/endpoints";
 
 describe("fetchUserPermissions", () => {
@@ -25,11 +27,20 @@ describe("fetchUserPermissions", () => {
     });
   });
 
-  it("throws on a non-ok response", async () => {
+  it("signs out when the token is dead (401)", async () => {
+    const { signOut } = jest.requireMock("next-auth/react");
     (global.fetch as jest.Mock).mockReturnValue(
       Promise.resolve({ ok: false, status: 401 } as Response),
     );
-    await expect(fetchUserPermissions("t")).rejects.toThrow(/401/);
+    await expect(fetchUserPermissions("expired")).rejects.toBeInstanceOf(SessionExpiredError);
+    expect(signOut).toHaveBeenCalledWith({ callbackUrl: "/login" });
+  });
+
+  it("throws on a non-ok response", async () => {
+    (global.fetch as jest.Mock).mockReturnValue(
+      Promise.resolve({ ok: false, status: 500 } as Response),
+    );
+    await expect(fetchUserPermissions("t")).rejects.toThrow(/500/);
   });
 
   it("returns an empty list when the payload shape is unexpected", async () => {

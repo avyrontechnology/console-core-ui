@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { useSession } from "next-auth/react";
 
-import { fetchUserPermissions } from "@/features/auth/api";
+import { fetchUserPermissions, SessionExpiredError } from "@/features/auth/api";
 
 /** Normalise whatever the session carries into a flat slug list. */
 function toSlugList(value: unknown): string[] {
@@ -23,6 +23,7 @@ export function usePermissions() {
   const sessionSlugs = toSlugList(session?.permissions);
   const [fetched, setFetched] = useState<string[] | null>(null);
   const [failed, setFailed] = useState(false);
+  const [sessionExpired, setSessionExpired] = useState(false);
   const isAuthenticated = status === "authenticated";
   const accessToken = session?.accessToken;
 
@@ -33,8 +34,11 @@ export function usePermissions() {
       .then((slugs) => {
         if (!cancelled) setFetched(slugs);
       })
-      .catch(() => {
+      .catch((error: unknown) => {
         if (!cancelled) {
+          // A dead session is being torn down (redirect to /login); showing
+          // session flags here would report "Access forbidden" instead.
+          setSessionExpired(error instanceof SessionExpiredError);
           setFailed(true);
           setFetched([]);
         }
@@ -46,7 +50,7 @@ export function usePermissions() {
 
   // Real RBAC slugs win; the session flags remain the fallback so the shell
   // still renders if the permissions endpoint is unavailable.
-  const permissions = failed ? sessionSlugs : (fetched ?? sessionSlugs);
+  const permissions = failed && !sessionExpired ? sessionSlugs : (fetched ?? sessionSlugs);
 
   return {
     isLoading: status === "loading" || (isAuthenticated && fetched === null),
