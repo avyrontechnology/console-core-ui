@@ -1,6 +1,6 @@
 "use client";
 
-import { Badge, type Tone } from "@/components/ui/Badge";
+import { Badge, type Tone } from "@/components/ui/badge";
 import type { AuditLog } from "@/types/audit-log";
 
 const ACTION_TONES: Record<string, Tone> = {

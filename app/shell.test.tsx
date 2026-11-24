@@ -23,9 +23,11 @@ jest.mock("@/features/dashboard/hooks", () => ({
   useDashboardCards: () => ({ data: [], isLoading: false, error: null, refresh: jest.fn() }),
 }));
 
+const mockRedirect = jest.fn();
 jest.mock("next/navigation", () => ({
   useRouter: () => ({ push: jest.fn() }),
   usePathname: () => "/dashboard",
+  redirect: (url: string) => mockRedirect(url),
 }));
 
 describe("app shell", () => {
@@ -38,9 +40,9 @@ describe("app shell", () => {
     expect(screen.getByText("hello")).toBeInTheDocument();
   });
 
-  it("home renders product name", () => {
+  it("home redirects to /login", () => {
     render(<Home />);
-    expect(screen.getByText("Console Core")).toBeInTheDocument();
+    expect(mockRedirect).toHaveBeenCalledWith("/login");
   });
 
   it("store provider supplies redux store", () => {

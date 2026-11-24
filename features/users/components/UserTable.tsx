@@ -1,7 +1,7 @@
 "use client";
 
 import type { Column } from "@/components/ui/DataTable";
-import { Badge } from "@/components/ui/Badge";
+import { Badge } from "@/components/ui/badge";
 import { DataTable } from "@/components/ui/DataTable";
 import type { User } from "@/types/user";
 

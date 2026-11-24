@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import ProtectedRoute from "@/components/ProtectedRoute";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { useUsers } from "@/features/users/hooks";
 import { UserTable } from "@/features/users/components/UserTable";

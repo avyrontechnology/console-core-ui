@@ -34,7 +34,7 @@ function toSlugList(value: unknown): string[] {
       .map(([flag]) => flag);
     // Append equivalent RBAC slugs so ProtectedRoute checks (which use
     // console:* slugs) match against session permissions too.
-    const mapped = flags.flatMap((f) => FLAG_TO_RBAC_SLUG[f] ? [f, FLAG_TO_RBAC_SLUG[f]] : [f]);
+    const mapped = flags.flatMap((f) => (FLAG_TO_RBAC_SLUG[f] ? [f, FLAG_TO_RBAC_SLUG[f]] : [f]));
     return [...new Set(mapped)];
   }
   return [];

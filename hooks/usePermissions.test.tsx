@@ -27,7 +27,7 @@ describe("usePermissions", () => {
     mockedFetch.mockReturnValue(new Promise(() => {}));
     const { result } = renderHook(() => usePermissions());
     expect(result.current.isLoading).toBe(true);
-    expect(result.current.permissions).toEqual(["can_view_users"]);
+    expect(result.current.permissions).toEqual(["can_view_users", "console:get_all_users"]);
   });
 
   it("prefers real slugs once fetched", async () => {

@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 
 import ProtectedRoute from "@/components/ProtectedRoute";
+import { Button } from "@/components/ui/button";
 import { ConfirmDialog } from "@/components/ui/Modal";
 import { TextField } from "@/components/ui/TextField";
 import {
@@ -87,29 +88,20 @@ function PartnerDetailContent({ id }: { id: string }) {
       />
       {saveError && <p className="text-sm text-critical">{saveError}</p>}
       <div className="flex flex-wrap gap-2">
-        <button
-          type="button"
-          onClick={() => void save()}
-          disabled={isSaving}
-          className="rounded bg-black px-4 py-2 text-white disabled:opacity-50"
-        >
+        <Button type="button" onClick={() => void save()} disabled={isSaving}>
           {isSaving ? "Saving…" : "Save"}
-        </button>
-        <button
+        </Button>
+        <Button
           type="button"
+          variant="outline"
           onClick={() => void flipActivation()}
           disabled={isToggling}
-          className="rounded border px-4 py-2 disabled:opacity-50"
         >
           {partner.is_active ? "Deactivate" : "Activate"}
-        </button>
-        <button
-          type="button"
-          onClick={() => setConfirmDelete(true)}
-          className="rounded border border-red-600 px-4 py-2 text-critical"
-        >
+        </Button>
+        <Button type="button" variant="destructive" onClick={() => setConfirmDelete(true)}>
           Delete
-        </button>
+        </Button>
       </div>
       {confirmDelete && (
         <ConfirmDialog

@@ -24,19 +24,33 @@ const badgeVariants = cva(
   },
 );
 
+export type Tone = "neutral" | "positive" | "caution" | "critical" | "info" | "brand";
+
+const TONE_VARIANTS: Record<Tone, "default" | "secondary" | "destructive" | "outline"> = {
+  neutral: "secondary",
+  positive: "default",
+  caution: "secondary",
+  critical: "destructive",
+  info: "outline",
+  brand: "default",
+};
+
 function Badge({
   className,
   variant = "default",
+  tone,
   asChild = false,
   ...props
-}: React.ComponentProps<"span"> & VariantProps<typeof badgeVariants> & { asChild?: boolean }) {
+}: React.ComponentProps<"span"> &
+  VariantProps<typeof badgeVariants> & { asChild?: boolean; tone?: Tone }) {
   const Comp = asChild ? Slot.Root : "span";
+  const resolvedVariant = tone ? TONE_VARIANTS[tone] : variant;
 
   return (
     <Comp
       data-slot="badge"
-      data-variant={variant}
-      className={cn(badgeVariants({ variant }), className)}
+      data-variant={resolvedVariant}
+      className={cn(badgeVariants({ variant: resolvedVariant }), className)}
       {...props}
     />
   );

@@ -12,7 +12,15 @@
     "format:write": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "test": "jest --coverage",
     "test:ci": "jest --ci --coverage --maxWorkers=2",
-    "prepare": "husky"
+    "prepare": "husky",
+    "factory:new": "node factory/cli/new-spec.mjs",
+    "factory:spec": "node factory/harnesses/spec-harness.mjs",
+    "factory:shadcn": "node factory/harnesses/shadcn-harness.mjs",
+    "factory:arch": "node factory/harnesses/arch-harness.mjs",
+    "factory:test": "node factory/harnesses/test-harness.mjs",
+    "factory:loop": "node factory/loops/factory-loop.mjs",
+    "factory:complete": "node factory/cli/complete-spec.mjs",
+    "factory:verify": "node factory/loops/factory-loop.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

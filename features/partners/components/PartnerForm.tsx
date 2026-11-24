@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
+import { Button } from "@/components/ui/button";
 import { TextField } from "@/components/ui/TextField";
 import { createPartnerSchema, type CreatePartnerForm } from "@/features/partners/schema";
 
@@ -58,13 +59,9 @@ export function PartnerForm({
         {...register("description")}
       />
       {serverError && <p className="text-sm text-critical">{serverError}</p>}
-      <button
-        type="submit"
-        disabled={isSaving}
-        className="rounded bg-black px-4 py-2 text-white disabled:opacity-50"
-      >
+      <Button type="submit" disabled={isSaving}>
         {isSaving ? "Saving…" : submitLabel}
-      </button>
+      </Button>
     </form>
   );
 }

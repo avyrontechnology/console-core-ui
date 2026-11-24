@@ -1,7 +1,8 @@
 "use client";
 
 import type { Column } from "@/components/ui/DataTable";
-import { Badge } from "@/components/ui/Badge";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/DataTable";
 import type { Partner } from "@/types/partner";
 
@@ -34,13 +35,14 @@ export function PartnerTable({
           key: "actions",
           header: "",
           render: (row) => (
-            <button
+            <Button
               type="button"
-              className="text-blue-600 hover:underline"
+              variant="link"
+              className="h-auto p-0 text-blue-600 hover:underline"
               onClick={() => onSelect(row)}
             >
               View
-            </button>
+            </Button>
           ),
         },
       ]

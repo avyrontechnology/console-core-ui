@@ -18,6 +18,7 @@ const config = {
     "features/**/*.{ts,tsx}",
     "lib/**/*.{ts,tsx}",
     "store/**/*.{ts,tsx}",
+    "!components/ui/**",
     "!**/*.d.ts",
     "!**/node_modules/**",
   ],
