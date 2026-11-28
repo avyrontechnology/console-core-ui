@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { signOut } from "next-auth/react";
 
 const NAV = [
   { href: "/dashboard", label: "Dashboard", group: "Overview" },
@@ -71,8 +72,15 @@ export default function Sidebar() {
         ))}
       </nav>
 
-      <div className="border-t border-white/10 px-5 py-3 text-xs text-brand-300/80">
-        Signed in as superadmin
+      <div className="border-t border-white/10 px-5 py-3">
+        <p className="text-xs text-brand-300/80">Signed in as superadmin</p>
+        <button
+          type="button"
+          onClick={() => void signOut({ callbackUrl: "/login" })}
+          className="mt-2 text-xs font-medium text-slate-300 hover:text-white hover:underline"
+        >
+          Log out
+        </button>
       </div>
     </aside>
   );
