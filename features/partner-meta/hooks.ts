@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { partnerMetaApi } from "./api";
+import { ApiError } from "@/lib/api-client";
 import type { PartnerMeta, PartnerMetaInput } from "@/types/partner-meta";
 
 interface AsyncState<T> {
@@ -56,6 +57,20 @@ export function useSavePartnerMeta() {
       setIsSaving(false);
       return result;
     } catch (err) {
+      // Stale "not found" read: we thought there was no row (no id), tried to
+      // create, but one already exists. Retry as an update instead of
+      // surfacing a confusing conflict for something the user can't fix.
+      if (!exists && err instanceof ApiError && err.status === 409) {
+        try {
+          const result = await partnerMetaApi.update(partnerId, input);
+          setIsSaving(false);
+          return result;
+        } catch (retryErr) {
+          setIsSaving(false);
+          setError(toMessage(retryErr));
+          throw retryErr;
+        }
+      }
       setIsSaving(false);
       setError(toMessage(err));
       throw err;
